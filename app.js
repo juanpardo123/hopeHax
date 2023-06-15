@@ -25,11 +25,12 @@ app.get('/', (req,res)=>{
     res.render('index');
 })
 
-
+//Api implementation
 const app_id = 'e74cfc4c';
 const app_key = 'f2390ae95179e70da980b011ef24d3f1'
 const ingredient = "apple"
 const url = `https://api.edamam.com/api/food-database/v2/parser?app_id=${app_id}&app_key=${app_key}&ingr=${ingredient}`;
+
 
 import axios from 'axios';
 
