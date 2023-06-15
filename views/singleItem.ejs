@@ -31,8 +31,22 @@
     </side-nav>
     <article>
         <p>Hello Ronda!</p>
-        <h1>Overview</h1>
-        
+        <h1>Search result:</h1>
+        <div class="card">
+            <img src="<%=data.image%>">
+            <div class="vertical">
+                <h1><%=data.label%></h1>
+            <h2>Category: <%=data.category%></h2>
+            <div class="horizontal">
+                <h3>Calories: <%=data.nutrients.ENERC_KCAL%></h3>
+            <h3>Protein: <%=data.nutrients.PROCNT%></h3>
+            <h3>Fats: <%=data.nutrients.FAT%></h3>
+            </div>
+            
+            </div>
+            
+
+        </div>
     </article>
 </body>
 </html>
