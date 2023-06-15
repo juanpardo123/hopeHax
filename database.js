@@ -38,13 +38,14 @@ export async function createUser(userName, password){
    
 }
 
-
+//get food info from SQL database
 export async function getfoods(){
     const [result] = await pool.query("select * from UserLogins");
     return result;
 }
 const result = await getfoods();
 
+//Find foods for the user based on their id
 export async function getfoodsByID(id){
     const [result] = await pool.query(`
     select * 
