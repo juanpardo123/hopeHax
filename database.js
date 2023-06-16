@@ -19,8 +19,6 @@ export async function createUser(userName, password){
     const [usernames] = await pool.query(`select Username 
     from UserLogins`)
     usernames.forEach(e=>{
-        console.log(e);
-        console.log(userNameLCase);
         if(e.Username == userNameLCase){
             
             unique = false;
@@ -40,13 +38,28 @@ export async function createUser(userName, password){
    
 }
 
-export async function getUserInfo(){
+//gets all users, userID and  passwords (Hashed+salted) from the data base
+export async function getUsers(){
     const [result] = await pool.query("select * from UserLogins");
     return result;
 }
 
+export async function getUserInfo(id){
+    const [result] = await pool.query(`
+    select * 
+    from UserInfo 
+    where User_id = ?
+    `, [id]);
+    return result[0];
+}
+
 //get food info from SQL database
 export async function getfoods(){
+    const [result] = await pool.query("select * from UserLogins");
+    return result;
+}
+
+export async function getUs(){
     const [result] = await pool.query("select * from UserLogins");
     return result;
 }
@@ -63,6 +76,7 @@ export async function getfoodsByID(id){
     return result;
 }
 
+//creates an entry for the given food
 export async function createFoods(User_ID,foodName, foodCalories, foodProtein, foodCarbs, foodFats){
      await pool.query(`
      INSERT INTO UserFoods (User_ID, Food_Name, Food_Calories, Food_Protein, Food_Fats, Food_Carbs ) VALUES (?, ?, ? ,?, ?,?)
@@ -70,8 +84,7 @@ export async function createFoods(User_ID,foodName, foodCalories, foodProtein, f
     `, [User_ID,foodName, foodCalories, foodProtein, foodCarbs, foodFats]);
 }
 
-const result2 = await getfoodsByID(1);
 
-createUser("mikelong", '1234');
+console.log(await getUserInfo(9))
 
-console.log(result2);
+

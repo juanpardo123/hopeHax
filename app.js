@@ -4,11 +4,13 @@ import express from 'express';
 import bcrypt from 'bcrypt';
 import axios from 'axios';
 import bodyParser from 'body-parser';
-import {getfoods, getfoodsByID, createUser, createFoods, getUserInfo} from './database.js'
+import {getfoods, getfoodsByID, createUser, createFoods, getUsers, getUserInfo} from './database.js'
 
 
 
-let globalUserID = null;
+export let globalUserID = null;
+export let globalUserData = null;
+
 
 const app = express();
 const port = 3000;
@@ -32,7 +34,9 @@ app.listen(port,()=>{
 
 app.get('/', (req,res)=>{
   if(globalUserID){
-    res.render('index');
+    console.log(globalUserID);
+    console.log(globalUserData);
+    res.render('index', {userData: globalUserData});
   }else{
     res.render('login');
   }
@@ -56,26 +60,25 @@ app.post('/search', async (req, res) => {
     let userName = req.body.userName;
     let password = req.body.password;
     
-    let data = await getUserInfo();
+    let data = await getUsers();
     console.log(data)
     let successfulLogin = false;
     data.forEach(element => {
       console.log(password, element.Password,(password == element.Password), userName, element.Username, (userName == element.Username))
       let passCheck = bcrypt.compareSync(password, element.Password);
       let userCheck = (userName == element.Username);
-
-      console.log('pass',passCheck);
-      console.log('user',userCheck);
-      console.log('eval',(passCheck && userCheck));
       if(passCheck && userCheck){
         globalUserID = element.ID;
         successfulLogin = true;
+
       }
+     
      });
 
     console.log("sucess", successfulLogin)
     if(successfulLogin){
-      res.render('index')
+      globalUserData = await getUserInfo(globalUserID);
+      res.render('index', {userData: globalUserData})
     }
     else{
       res.redirect('/');
@@ -106,5 +109,5 @@ app.post('/search', async (req, res) => {
   }
 //Api implementation
 
-
+app.locals.userData = globalUserData;
 
