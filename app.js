@@ -3,7 +3,10 @@ import http from 'https'
 import express from 'express';
 import axios from 'axios';
 import bodyParser from 'body-parser';
-import {getfoods, getfoodsByID, createUser} from './database.js'
+import {getfoods, getfoodsByID, createUser, createFoods, getUserInfo} from './database.js'
+
+
+let globalUserID = null;
 
 const app = express();
 const port = 3000;
@@ -26,7 +29,12 @@ app.listen(port,()=>{
 });
 
 app.get('/', (req,res)=>{
+  if(globalUserID){
     res.render('index');
+  }else{
+    res.render('login');
+  }
+   
 })
 
 app.post('/search', async (req, res) => {
@@ -41,6 +49,24 @@ app.post('/search', async (req, res) => {
       res.render('error');
     }
   });
+
+  app.post('/login', async (req, res) => {
+    let userName = req.body.userName;
+    let password = req.body.password;
+    let data = await getUserInfo();
+    console.log(data);
+    res.redirect('/')
+  })
+
+  app.post('/save', (req,res)=>{
+    let foodName = req.body.foodName;
+    let foodCalories = Number(req.body.foodCalories);
+    let foodProtein = Number(req.body.foodProtein);
+    let foodFats = Number(req.body.foodFats);
+    let foodCarbs = Number(req.body.foodCarbs);
+    createFoods(1,foodName, foodCalories, foodProtein, foodCarbs, foodFats);
+    res.redirect("/")
+  })
   
   async function getItemApi(ingredient) {
     const url = `https://api.edamam.com/api/food-database/v2/parser?app_id=${app_id}&app_key=${app_key}&ingr=${ingredient}`;

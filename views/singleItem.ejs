@@ -53,14 +53,19 @@
                     <h3><%=data.nutrients.FAT%></h3>
                     <h4>Fats</h4>
                 </div>
+                <div class="desc fats">
+                    <h3><%=data.nutrients.CHOCDF%></h3>
+                    <h4>Carbs</h4>
+                </div>
                 
             </div>
-            <form action="/save">
+            <form action="/save" method="post">
                 <input type="text" value="<%=data.label%>" name="foodName" class="hid" readonly>
                 <input type="text" value="<%=data.image%>" name="foodImage" class="hid" readonly>
                 <input type="text" value="<%=data.nutrients.ENERC_KCAL%>" name="foodCalories" class="hid" readonly>
                 <input type="text" value="<%=data.nutrients.PROCNT%>" name="foodProtein" class="hid" readonly>
                 <input type="text" value="<%=data.nutrients.FAT%>" name="foodFats" class="hid" readonly>
+                <input type="text" value="<%=data.nutrients.CHOCDF%>" name="foodCarbs" class="hid" readonly>
                 <input type="submit" value="save" class="add">
             </form>
             </div>

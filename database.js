@@ -3,6 +3,7 @@ import bcrypt from 'bcrypt';
 
 const saltRounds = 10;
 
+
 //Creates connection to the SQL server
 const pool = mysql.createPool({
     host: 'localhost',
@@ -38,6 +39,11 @@ export async function createUser(userName, password){
    
 }
 
+export async function getUserInfo(){
+    const [result] = await pool.query("select * from UserLogins");
+    return result;
+}
+
 //get food info from SQL database
 export async function getfoods(){
     const [result] = await pool.query("select * from UserLogins");
@@ -55,6 +61,14 @@ export async function getfoodsByID(id){
     `, [id]);
     return result;
 }
+
+export async function createFoods(User_ID,foodName, foodCalories, foodProtein, foodCarbs, foodFats){
+     await pool.query(`
+     INSERT INTO UserFoods (User_ID, Food_Name, Food_Calories, Food_Protein, Food_Fats, Food_Carbs ) VALUES (?, ?, ? ,?, ?,?)
+    
+    `, [User_ID,foodName, foodCalories, foodProtein, foodCarbs, foodFats]);
+}
+
 const result2 = await getfoodsByID(1);
 
 createUser("mikelong", '1234');

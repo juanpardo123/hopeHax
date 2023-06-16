@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles/style.css">
+    <title>Main</title>
+</head>
+<body>
+    <nav>
+
+        <div class="search">
+            <form action="/search" method="post">
+                <img src="/images/search.svg" class="magnify">
+                <input type="text" id="search" name="name">
+                <input type="submit" class="button">
+            </form>
+            
+        </div>
+        
+       <img src="/images/profile.svg" class="profile">
+  
+    </nav>
+    <side-nav>
+    
+       <img src="/images/log.png" class="logo">
+       <a href="/"><img src="/images/dashboard.svg" class="side-icons active-icon"></a>
+       <a href="/"><img src="/images/news.svg" class="side-icons"></a>
+       <a href="/"> <img src="/images/music-album.svg" class="side-icons"></a>
+        <a href="/"> <img src="/images/star.svg" class="side-icons"></a>
+    </side-nav>
+    <article>
+        <p>Please login or sign up before continuing</p>
+        <h1>Login</h1>
+        <div class="card">
+           
+            <div class="vertical">
+          
+            <form action="/login" method="post">
+                <input type="text"  name="userName"  >
+                <input type="password"  name="password"  >
+                <input type="submit" value="Login" class="add">
+            </form>
+            </div>
+            
+
+        </div>
+    </article>
+</body>
+
+</html>
