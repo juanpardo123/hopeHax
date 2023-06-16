@@ -33,14 +33,30 @@
         <p>Hello Ronda!</p>
         <h1>Search result:</h1>
         <div class="card">
-            <img src="<%=data.image%>">
+            <div class="holder">
+                <img src="<%=data.image%>" class="main-image">
+                <img src="<%=data.image%>" class="back-image">
+            </div>
             <div class="vertical">
                 <h1><%=data.label%></h1>
             <h2>Category: <%=data.category%></h2>
             <div class="horizontal">
-                <h3>Calories: <%=data.nutrients.ENERC_KCAL%></h3>
-            <h3>Protein: <%=data.nutrients.PROCNT%></h3>
-            <h3>Fats: <%=data.nutrients.FAT%></h3>
+                <div class="desc calories">
+                    <h3><%=data.nutrients.ENERC_KCAL%></h3>
+                    <h4>Calories</h4>
+                </div>
+                <div class="desc protein">
+                    <h3><%=data.nutrients.PROCNT%></h3>
+                    <h4>Protein</h4>
+                </div>
+                <div class="desc fats">
+                    <h3><%=data.nutrients.FAT%></h3>
+                    <h4>Fats</h4>
+                </div>
+               
+                
+        
+
             </div>
             
             </div>
@@ -49,4 +65,5 @@
         </div>
     </article>
 </body>
+
 </html>
