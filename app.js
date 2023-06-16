@@ -1,9 +1,11 @@
 import fs from 'fs';
 import http from 'https'
 import express from 'express';
+import bcrypt from 'bcrypt';
 import axios from 'axios';
 import bodyParser from 'body-parser';
 import {getfoods, getfoodsByID, createUser, createFoods, getUserInfo} from './database.js'
+
 
 
 let globalUserID = null;
@@ -53,9 +55,32 @@ app.post('/search', async (req, res) => {
   app.post('/login', async (req, res) => {
     let userName = req.body.userName;
     let password = req.body.password;
+    
     let data = await getUserInfo();
-    console.log(data);
-    res.redirect('/')
+    console.log(data)
+    let successfulLogin = false;
+    data.forEach(element => {
+      console.log(password, element.Password,(password == element.Password), userName, element.Username, (userName == element.Username))
+      let passCheck = bcrypt.compareSync(password, element.Password);
+      let userCheck = (userName == element.Username);
+
+      console.log('pass',passCheck);
+      console.log('user',userCheck);
+      console.log('eval',(passCheck && userCheck));
+      if(passCheck && userCheck){
+        globalUserID = element.ID;
+        successfulLogin = true;
+      }
+     });
+
+    console.log("sucess", successfulLogin)
+    if(successfulLogin){
+      res.render('index')
+    }
+    else{
+      res.redirect('/');
+    }
+    
   })
 
   app.post('/save', (req,res)=>{
@@ -80,3 +105,6 @@ app.post('/search', async (req, res) => {
     }
   }
 //Api implementation
+
+
+

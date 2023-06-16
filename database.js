@@ -15,12 +15,13 @@ const pool = mysql.createPool({
 //function for adding new users to the database returns true if successful otherwise false
 export async function createUser(userName, password){
     let unique = true;
+    let userNameLCase = userName.toLowerCase()
     const [usernames] = await pool.query(`select Username 
     from UserLogins`)
     usernames.forEach(e=>{
         console.log(e);
-        console.log(userName);
-        if(e.Username == userName){
+        console.log(userNameLCase);
+        if(e.Username == userNameLCase){
             
             unique = false;
         }
@@ -30,7 +31,7 @@ export async function createUser(userName, password){
         await pool.query(`
         INSERT INTO UserLogins (Username, Password) VALUES (?, ?)
         
-        `, [userName, hash]);
+        `, [userNameLCase, hash]);
         return true;
     }else{
         console.log(`error ${userName} already exists`)
