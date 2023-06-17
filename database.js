@@ -77,11 +77,11 @@ export async function getfoodsByID(id){
 }
 
 //creates an entry for the given food
-export async function createFoods(User_ID,foodName, foodCalories, foodProtein, foodCarbs, foodFats){
+export async function createFoods(User_ID,foodName, foodCalories, foodProtein, foodCarbs, foodFats, foodImage){
+    console.log('imagen---------------',foodImage[0]);
      await pool.query(`
-     INSERT INTO UserFoods (User_ID, Food_Name, Food_Calories, Food_Protein, Food_Fats, Food_Carbs ) VALUES (?, ?, ? ,?, ?,?)
-    
-    `, [User_ID,foodName, foodCalories, foodProtein, foodCarbs, foodFats]);
+     INSERT INTO UserFoods (User_ID, Food_Name, Food_Calories, Food_Protein, Food_Fats, Food_Carbs, Food_Image ) VALUES (?, ?, ? ,?, ?,?,?)
+    `, [User_ID,foodName, foodCalories, foodProtein,foodFats , foodCarbs , foodImage[0]]);
 }
 
 

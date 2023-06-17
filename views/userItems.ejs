@@ -30,21 +30,46 @@
         <a href="/"> <img src="/images/star.svg" class="side-icons"></a>
     </side-nav>
     <article>
-        <p>Please login or sign up before continuing</p>
-        <h1>Login</h1>
-        <div class="card">
-           
-            <div class="vertical">
-          
-            <form action="/login" method="post">
-                <input type="text"  name="userName"  >
-                <input type="password"  name="password"  >
-                <input type="submit" value="Login" class="add">
-            </form>
+        <p>Hello <%=userData.User_name%>!!</p>
+        <h1>Your list of Foods</h1>
+
+<% foodList.forEach(e=>{ %>
+
+    <div class="card">
+        <div class="holder">
+            <img src="<%=e.Food_Image%>" class="main-image">
+            <img src="<%=e.Food_Image%>" class="back-image">
+        </div>
+        <div class="vertical">
+            <h1><%=e.Food_Name%></h1>
+        <div class="horizontal">
+            <div class="desc calories">
+                <h3><%=e.Food_Calories%></h3>
+                <h4>Calories</h4>
+            </div>
+            <div class="desc protein">
+                <h3><%=e.Food_Protein%></h3>
+                <h4>Protein</h4>
+            </div>
+            <div class="desc fats">
+                <h3><%=e.Food_Fats%></h3>
+                <h4>Fats</h4>
+            </div>
+            <div class="desc fats">
+                <h3><%=e.Food_Carbs%></h3>
+                <h4>Carbs</h4>
             </div>
             
-
         </div>
+        
+        </div>
+        
+
+    </div>
+
+
+    <% })%>
+       
     </article>
 </body>
 

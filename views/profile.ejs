@@ -18,7 +18,7 @@
             
         </div>
         
-        <a href="/profile"> <img src="/images/profile.svg" class="profile"></a>
+      <a href="/profile"> <img src="/images/profile.svg" class="profile"></a>
   
     </nav>
     <side-nav>
@@ -30,16 +30,18 @@
         <a href="/"> <img src="/images/star.svg" class="side-icons"></a>
     </side-nav>
     <article>
-        <p>Please login or sign up before continuing</p>
-        <h1>Login</h1>
+        <h1>User info:</h1>
         <div class="card">
-           
+            <div class="holder">
+                <img src="/images/profile.svg" class="profile">
+            </div>
             <div class="vertical">
-          
-            <form action="/login" method="post">
-                <input type="text"  name="userName"  >
-                <input type="password"  name="password"  >
-                <input type="submit" value="Login" class="add">
+                <h1>Name: <%=userData.User_name%></h1>
+            <h2>Height: <%=userData.User_height%> ft</h2>
+            <h2>weight: <%=userData.User_weight%> Lb</h2>
+            <h2>Target Calories: <%=userData.User_target_calories%></h2>
+            <form action="/logOut" method="post">
+                <input type="submit" value="LogOut" class="add">
             </form>
             </div>
             

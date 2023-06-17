@@ -18,19 +18,19 @@
             
         </div>
         
-       <img src="/images/profile.svg" class="profile">
+        <a href="/profile"> <img src="/images/profile.svg" class="profile"></a>
   
     </nav>
     <side-nav>
     
        <img src="/images/log.png" class="logo">
        <a href="/"><img src="/images/dashboard.svg" class="side-icons active-icon"></a>
-       <a href="/"><img src="/images/news.svg" class="side-icons"></a>
+       <a href="/list"><img src="/images/news.svg" class="side-icons"></a>
        <a href="/"> <img src="/images/music-album.svg" class="side-icons"></a>
         <a href="/"> <img src="/images/star.svg" class="side-icons"></a>
     </side-nav>
     <article>
-        <p>Hello Ronda!</p>
+        <p>Hello <%=userData.User_name%>!!</p>
         <h1>Search result:</h1>
         <div class="card">
             <div class="holder">
@@ -66,6 +66,7 @@
                 <input type="text" value="<%=data.nutrients.PROCNT%>" name="foodProtein" class="hid" readonly>
                 <input type="text" value="<%=data.nutrients.FAT%>" name="foodFats" class="hid" readonly>
                 <input type="text" value="<%=data.nutrients.CHOCDF%>" name="foodCarbs" class="hid" readonly>
+                <input type="text" value="<%=data.image%>" name="foodImage" class="hid" readonly>
                 <input type="submit" value="save" class="add">
             </form>
             </div>

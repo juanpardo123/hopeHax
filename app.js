@@ -49,7 +49,7 @@ app.post('/search', async (req, res) => {
       console.log(search);
       let result = await getItemApi(search);
       console.log(result);
-      res.render('singleItem', {data:result});
+      res.render('singleItem', {data:result,userData: globalUserData});
     } catch (error) {
       console.error(error);
       res.render('error');
@@ -92,7 +92,8 @@ app.post('/search', async (req, res) => {
     let foodProtein = Number(req.body.foodProtein);
     let foodFats = Number(req.body.foodFats);
     let foodCarbs = Number(req.body.foodCarbs);
-    createFoods(1,foodName, foodCalories, foodProtein, foodCarbs, foodFats);
+    let foodImage = req.body.foodImage;
+    createFoods(globalUserID,foodName, foodCalories, foodProtein, foodCarbs, foodFats, foodImage);
     res.redirect("/")
   })
   
@@ -107,6 +108,33 @@ app.post('/search', async (req, res) => {
       throw error;
     }
   }
+//Shows the list of added
+  app.get('/list', async (req,res)=>{
+    if(globalUserID){
+      let userFoodList = await getfoodsByID(globalUserID);
+      console.log(userFoodList);
+      res.render('userItems',{foodList:userFoodList,userData: globalUserData });
+    } else{
+      res.redirect('/');
+    }
+  
+  })
+
+  app.post('/logOut', (req,res)=>{
+     globalUserID = null;
+    globalUserData = null;
+    res.redirect('/')
+  })
+
+  app.get('/profile', async (req,res)=>{
+    if(globalUserID){
+      console.log(globalUserData);
+      res.render('profile',{userData: globalUserData });
+    } else{
+      res.redirect('/');
+    }
+  
+  })
 //Api implementation
 
 app.locals.userData = globalUserData;
