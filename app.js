@@ -6,7 +6,7 @@ import bcrypt from 'bcrypt';
 //import axios. axios in this application is used to handle API requests.
 import axios from 'axios';
 
-import { getfoodsByID, createUser, createFoods, getUsers, getUserInfo} from './database.js'
+import { getfoodsByID, createUser, createFoods, getUsers, getUserInfo, createUserInfo, getUserIDByUserName} from './database.js'
 
 
 
@@ -180,17 +180,29 @@ app.post('/search', async (req, res) => {
 
 
   //handles post request for creating a new user
-  app.post('/create', (req,res)=>{
+  app.post('/create', async (req,res)=>{
       let username = req.body.userName;
       let password = req.body.password;
       let passwordRepeat = req.body.passwordrepeat;
       let name = req.body.name;
       let height = req.body.height;
       let weight = req.body.weight;
-    
-      if(password == passwordRepeat){
+    let target = Number(req.body.target);
 
+      if(password == passwordRepeat){
+        let User = await createUser(username,password);
+        let newUserID = await getUserIDByUserName(User);
+        console.log('-------------->',newUserID)
+        if(newUserID){
+          await createUserInfo(newUserID ,name, height, weight, target);
+          res.redirect('/')
+        }else{
+          console.log('user name is not available')
+          res.redirect('/create');
+        }
       }else{
+        //replace with handled error
+        console.log('Passwords do not match')
         res.redirect('/create');
       }
   })

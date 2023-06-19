@@ -42,13 +42,16 @@ export async function getUserIDByUserName(username){
     const [usernameInfo] = await pool.query(`
     select ID  
     from UserLogins
-    where Username = 'mikelong'
+    where Username = ?
     `, [username])
     return usernameInfo[0].ID;
 }
 
-export async function createUserInfo(){
-    
+export async function createUserInfo( ID,user_name, user_height, user_weight, user_target_calories){
+    await pool.query(`
+    INSERT INTO UserInfo (User_ID,User_name, User_height, User_weight, User_target_calories, User_preferences ) VALUES ( ?, ?, ?, ?, ?, NULL)
+        
+        `, [ID, user_name, user_height, user_weight, user_target_calories]);
 }
 
 //gets all userID and  passwords (Hashed+salted) from the data base and returns results as an object:
@@ -122,5 +125,3 @@ export async function createFoods(User_ID,foodName, foodCalories, foodProtein, f
     `, [User_ID,foodName, foodCalories, foodProtein,foodFats , foodCarbs , foodImage[0]]);
 }
 
-
-console.log(await getUserIDByUserName('mikelong'));
