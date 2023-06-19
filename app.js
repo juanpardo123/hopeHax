@@ -6,7 +6,7 @@ import bcrypt from 'bcrypt';
 //import axios. axios in this application is used to handle API requests.
 import axios from 'axios';
 
-import {getfoods, getfoodsByID, createUser, createFoods, getUsers, getUserInfo} from './database.js'
+import { getfoodsByID, createUser, createFoods, getUsers, getUserInfo} from './database.js'
 
 
 
@@ -181,7 +181,18 @@ app.post('/search', async (req, res) => {
 
   //handles post request for creating a new user
   app.post('/create', (req,res)=>{
+      let username = req.body.userName;
+      let password = req.body.password;
+      let passwordRepeat = req.body.passwordrepeat;
+      let name = req.body.name;
+      let height = req.body.height;
+      let weight = req.body.weight;
+    
+      if(password == passwordRepeat){
 
+      }else{
+        res.redirect('/create');
+      }
   })
 
 app.locals.userData = globalUserData;
