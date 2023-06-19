@@ -30,12 +30,25 @@ export async function createUser(userName, password){
         INSERT INTO UserLogins (Username, Password) VALUES (?, ?)
         
         `, [userNameLCase, hash]);
-        return true;
+        return userNameLCase;
     }else{
         console.log(`error ${userName} already exists`)
-        return false;
+        return null;
     }
    
+}
+
+export async function getUserIDByUserName(username){
+    const [usernameInfo] = await pool.query(`
+    select ID  
+    from UserLogins
+    where Username = 'mikelong'
+    `, [username])
+    return usernameInfo[0].ID;
+}
+
+export async function createUserInfo(){
+    
 }
 
 //gets all userID and  passwords (Hashed+salted) from the data base and returns results as an object:
@@ -110,4 +123,4 @@ export async function createFoods(User_ID,foodName, foodCalories, foodProtein, f
 }
 
 
-
+console.log(await getUserIDByUserName('mikelong'));
