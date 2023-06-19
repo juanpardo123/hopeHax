@@ -228,5 +228,37 @@ app.post('/search', async (req, res) => {
     res.redirect('/list');
   })
 
+
+  const app_id2 = "f6811248";
+const app_key2 = "55aebe44f4785021c5eb4276e7f46710";
+async function getRecipes(query) {
+  const url2 = `https://api.edamam.com/search?app_id=${app_id2}&app_key=${app_key2}&q=${query}`;
+  try {
+    const response = await axios.get(url2);
+    // console.log(response);
+    const data = response.data;
+    console.log(data.hits);
+    return data.hits;
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+}
+//ROUTE HANDLING
+app.get("/recipes", async (req, res) => {
+  const query = req.query.query; //grabbing query parameter from request
+  try {
+    const recipes = await getRecipes(query);
+    if (recipes.length > 0) {
+      res.render("recipes", { recipes: recipes }); //Showing the template on browser with the data
+    } else {
+      res.render("recipes", { recipes: null });
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("ERROR ERROR ERROR");
+  }
+});
+
 app.locals.userData = globalUserData;
 

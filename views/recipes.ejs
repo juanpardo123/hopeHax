@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/styles/style.css" />
+    <title>Main</title>
+  </head>
+  <body>
+    <nav>
+      <img src="/images/profile.svg" class="profile" />
+    </nav>
+    <side-nav>
+      <img src="/images/log.png" class="logo" />
+      <a href="/"
+        ><img src="/images/dashboard.svg" class="side-icons active-icon"
+      /></a>
+      <a href="/"><img src="/images/news.svg" class="side-icons" /></a>
+      <a href="/"> <img src="/images/music-album.svg" class="side-icons" /></a>
+      <!-- <a href="/"> <img src="/images/star.svg" class="side-icons" /></a> -->
+    </side-nav>
+    <article>
+      <p>Hello Ronda!</p>
+      <h1>Healthy Recipes</h1>
+      <div class="recipeButtonsContainer">
+        <button class="rb breakfast">BreakFast</button>
+        <button class="rb lunch">Lunch</button>
+        <button class="rb dinner">Dinner</button>
+        <button class="rb snacks">Snacks</button>
+        <button class="rb allRecipes">All Recipes</button>
+      </div>
+      <div class="dropRecipes">
+        <div class="dropRecipesInfo">
+          <img
+            src="/images/searchIcon.png"
+            class="dropRecipesIcon"
+            alt="Search Icon"
+          />
+          <p class="dropRecipesLabel">I am Interested In</p>
+          <button class="dropRecipesBtn">Nutrition Information For...</button>
+          <div class="dropRecipesContent">
+            <!-- put in list to make code readable and more semantic -->
+            <ul>
+              <li><a href="#" class="recipeLinks">BreakFast</a></li>
+              <li><a href="#" class="recipeLinks">Lunch</a></li>
+              <li><a href="#" class="recipeLinks">Dinner</a></li>
+              <li><a href="#" class="recipeLinks">Snacks</a></li>
+            </ul>
+          </div>
+        </div>
+        <aside id="recipeCatalog">
+          <% if(recipes && recipes.length > 0){ %>
+          <ul>
+            <% recipes.forEach(recipe =>{ %>
+            <li><%= recipe.recipe.label %></li>
+            <% }); %>
+          </ul>
+          <% } else { %>
+          <p>No recipes found.</p>
+          <% } %>
+          <h1 id="recipeSearch">Recipe Search</h1>
+          <form action="/recipes" method="GET">
+            <input
+              type="text"
+              name="query"
+              placeholder="What Kind of Recipe?"
+            />
+            <button type="submit" class="button2">Search</button>
+          </form>
+          <!-- <p class="recipeCatalogText">Healthy Eats</p> -->
+        </aside>
+        <!-- FOOD WHEEL SIDE IMAGE -->
+        <article>
+          <img
+            src="/images/foodGroups.png"
+            class="foodWheel"
+            alt="Food Wheel Image"
+          />
+        </article>
+      </div>
+    </article>
+  </body>
+</html>
+<!-- <% if(recipes && recipes.length > 0){ %>
+          <h2>Search Results:</h2>
+          <ul>
+            <% recipes.forEach(recipe => { %>
+            <li><%= recipe.recipe.label %></li>
+            <% }); %>
+          </ul>
+          <% } else if(recipes){ %>
+          <p>No recipes found.</p>
+          <% } %>
+         -->

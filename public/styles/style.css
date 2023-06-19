@@ -236,3 +236,125 @@ padding-left: 4rem;
     color: white;
     background: #b56142;
 }
+
+/* Recipes Page Styling */
+.recipeButtonsContainer {
+    display: flex;
+    justify-content: flex-start;
+  }
+  .rb {
+    width: 160px;
+    height: 60px;
+    font-size: 15px;
+    border: solid 1px #1A1110;
+    border-radius: 47px;
+    margin: 20px;
+    box-shadow: -5px 7px 5px 0px #818483;
+    transition: transform 0.3s;
+  }
+  .rb:hover {
+    transform: scale(1.1) translateZ(0);
+  }
+  .breakfast {
+    background: rgba(250, 190, 44, 0.28);
+  }
+  .lunch {
+    background: rgba(136, 53, 220, 0.28);
+  }
+  .dinner {
+    background: rgba(181, 211, 190, 0.79);
+  }
+  .snacks {
+    background: rgba(255, 67, 91, 0.79);
+  }
+  .allRecipes {
+    background: rgba(126, 216, 246, 0.28);
+  }
+  /* Dropdown Syling */
+  .dropRecipesInfo {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    margin-left: 200px;
+  }
+  .dropRecipesIcon {
+    width: 40px;
+    height: 40px;
+    margin-right: 20px;
+  }
+  .dropRecipesLabel {
+    margin: 0;
+    font-size: 40px;
+  }
+  .dropRecipesBtn {
+    width: 400px;
+    background-color: rgba(129, 132, 131, 0.7);
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    border-radius: 50px;
+    margin-left: 40px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  }
+  .dropRecipes {
+    position: relative;
+    display: inline-block;
+    margin-top: 100px;
+  }
+  .dropRecipesContent {
+    display: none;
+    position: absolute;
+    background-color: #B8B1B1;
+    width: 400px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    top: 50px;
+    /* top: 100%; */
+    left: 630px;
+  }
+  .dropRecipesContent .recipeLinks {
+    color: #1A1110;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: center;
+  }
+  .dropRecipesContent .recipeLinks:hover {
+    background: #F1F1F1;
+  }
+  .dropRecipes:hover .dropRecipesContent {
+    display: block;
+    border-radius: 30px;
+    background-color: rgba(136, 53, 220, 0.6);
+  }
+  /* side section */
+  #recipeCatalog {
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    background: rgba(217, 217, 217, 0.37);
+    box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.17);
+    border-radius: 88px;
+    left: 700px;
+    margin-top: 200px;
+  }
+  .recipeCatalogText {
+    text-align: center;
+  }
+  .foodWheel {
+    margin-top: 90px;
+    transition: width 2s, height 2s, background-color 2s, rotate 2s;
+  }
+  .foodWheel:hover {
+    rotate: 180deg;
+  }
+  input[name="query"] {
+    margin-top: 50px;
+  }
+  ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
