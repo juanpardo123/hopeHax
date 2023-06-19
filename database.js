@@ -38,11 +38,26 @@ export async function createUser(userName, password){
    
 }
 
-//gets all users, userID and  passwords (Hashed+salted) from the data base
+//gets all userID and  passwords (Hashed+salted) from the data base and returns results as an object:
+// ID: id int,
+// Username: 'username' string,
+// Password: 'password' string(hashed),
+// LoginTime: 'date' string (yyyy-mm-ddThh:mm:ss.000Z_);
 export async function getUsers(){
     const [result] = await pool.query("select * from UserLogins");
     return result;
 }
+
+//gets Userinfo based on id from the data base and returns results as an object:
+// {
+//User_ID: id int,
+// User_name: 'name' string,
+// User_height: 'height' string,
+// User_weight: 'weight' string,
+// User_target_calories: 'calories' int,
+// User_preferences: 'preferences' string,
+// AddedTime: 'date' string (yyyy-mm-ddThh:mm:ss.mmmZ_) (Z= Zulu time)(T=time delimiter);
+//}
 
 export async function getUserInfo(id){
     const [result] = await pool.query(`
@@ -53,19 +68,18 @@ export async function getUserInfo(id){
     return result[0];
 }
 
-//get food info from SQL database
-export async function getfoods(){
-    const [result] = await pool.query("select * from UserLogins");
-    return result;
-}
 
-export async function getUs(){
-    const [result] = await pool.query("select * from UserLogins");
-    return result;
-}
-const result = await getfoods();
-
-//Find foods for the user based on their id
+//Finds foods for the user based on their id and returns an object
+//{
+//User_ID: id int,
+// Food_Name: 'food name' string,
+// Food_Calories: calories int,
+// Food_Protein: protein int,
+// Food_Fats: fats int,
+// Food_Carbs: carbs int,
+//  Food_Image: 'image' string (link to resource),
+// AddedTime: 'date' string (yyyy-mm-ddThh:mm:ss.mmmZ_) (Z= Zulu time)(T=time delimiter);
+//}
 export async function getfoodsByID(id){
     const [result] = await pool.query(`
     select * 
@@ -76,15 +90,24 @@ export async function getfoodsByID(id){
     return result;
 }
 
-//creates an entry for the given food
+//creates an entry for the given food with the given parameters in the following format:
+//Finds foods for the user based on their id and returns an object
+//{
+//User_ID: User_ID int,
+// Food_Name: foodName string,
+// Food_Calories: foodCalories int,
+// Food_Protein: foodProtein int,
+// Food_Fats: fats int,
+// Food_Carbs: carbs int,
+//  Food_Image: 'image' string (link to resource),
+// AddedTime: 'date' string (yyyy-mm-ddThh:mm:ss.mmmZ_) (Z= Zulu time)(T=time delimiter);
+//}
 export async function createFoods(User_ID,foodName, foodCalories, foodProtein, foodCarbs, foodFats, foodImage){
-    console.log('imagen---------------',foodImage[0]);
+   
      await pool.query(`
      INSERT INTO UserFoods (User_ID, Food_Name, Food_Calories, Food_Protein, Food_Fats, Food_Carbs, Food_Image ) VALUES (?, ?, ? ,?, ?,?,?)
     `, [User_ID,foodName, foodCalories, foodProtein,foodFats , foodCarbs , foodImage[0]]);
 }
 
-
-console.log(await getUserInfo(9))
 
 

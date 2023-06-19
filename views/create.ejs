@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles/style.css">
+    <title>Main</title>
+</head>
+<body>
+    <%- include('./partials/nav.ejs') %>
+    <article>
+        <p></p>
+        <h1>Create new account</h1>
+        <div class="card">
+           
+            <div class="vertical">
+          
+            <form action="/create" method="post">
+                <h2>Username</h2>
+                <input type="text"  name="userName"  required>
+                <h2>Password</h2>
+                <input type="password"  name="password" required >
+                <h2>Repeat Password</h2>
+                <input type="password"  name="password-repeat" required>
+                <h2>Name</h2>
+                <input type="text"  name="name"  required>
+                <h2>height</h2>
+                <input type="number"  name="height" required>
+                <h2>weight (Lb)</h2>
+                <input type="number"  name="weight" required>
+                <input type="submit" value="Continue" class="add">
+            </form>
+            </div>
+            
+
+        </div>
+    </article>
+</body>
+
+</html>

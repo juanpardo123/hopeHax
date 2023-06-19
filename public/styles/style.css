@@ -213,5 +213,26 @@ padding-left: 4rem;
     border-style: solid;
     border-color: #0000003d;
     align-items: center;
-    box-shadow: 0px 0px 20px 1px #ff1a4c87;
+    box-shadow: 0px 0px 14px 2px #ff1a4c57;
+    cursor: pointer;
+}
+.add:hover{
+    color: white;
+    background: #a6314a;
+    box-shadow: 0px 0px 20px 1px #00000087;
+}
+.button{
+    background: coral;
+    padding: 10px;
+    border-radius: 1rem;
+    margin: 1;
+    border-style: solid;
+    border-color: #00000021;
+    box-shadow: 0px 0px 5px 1px #00000061;
+    cursor: pointer;
+    
+}
+.button:hover{
+    color: white;
+    background: #b56142;
 }
