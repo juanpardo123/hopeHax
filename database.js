@@ -143,3 +143,17 @@ export async function createFoods(User_ID,foodName, foodCalories, foodProtein, f
     `, [User_ID,foodName, foodCalories, foodProtein,foodFats , foodCarbs , foodImage[0]]);
 }
 
+//delete food by ID
+
+export async function deleteFoodByID(foodID){
+    try{
+        await pool.query(`
+        DELETE FROM UserFoods WHERE food_entry_ID = ?
+        `, [foodID]);
+        return true;
+    }catch{
+        return false;
+    }
+   
+}
+

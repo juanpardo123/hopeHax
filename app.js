@@ -6,7 +6,7 @@ import bcrypt from 'bcrypt';
 //import axios. axios in this application is used to handle API requests.
 import axios from 'axios';
 
-import { getfoodsByID, createUser, createFoods, getUsers, getUserInfo, createUserInfo, getUserIDByUserName} from './database.js'
+import { getfoodsByID, createUser, createFoods, getUsers, getUserInfo, createUserInfo, getUserIDByUserName, deleteFoodByID} from './database.js'
 
 
 
@@ -58,12 +58,13 @@ app.get('/', (req,res)=>{
       // login page is rendered
 app.post('/search', async (req, res) => {
   if(globalUserID){
+    let search = req.body.name;
     try {
-      let search = req.body.name;
       let result = await getItemApi(search);
       res.render('singleItem', {data:result,userData: globalUserData});
-    } catch (error) {
-      res.render('error');
+    } catch {
+      let suggestions = getSuggestionsApi(search.substring(0, 3));
+      res.render('suggestions', {data:suggestions ,userData: globalUserData})
     }
   }else{
     res.render('login');
@@ -136,6 +137,20 @@ app.post('/search', async (req, res) => {
   }
 
 
+  async function getSuggestionsApi(initials) {
+    const url = `https://api.edamam.com/auto-complete?app_id=ec4bcbe9&app_key=c4e46792050ed99dfd8d58e9e9101c63&q=${initials}&limit=10
+    `;
+    try {
+      const response = await axios.get(url);
+      return response.data;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  }
+
+  getSuggestionsApi('app');
+
 //handles get request for "/list" (Food List).
 //if user is logged in
     //a function that retreives the foods based on the user id is called. page 'userItems is then rendered with appropriate details
@@ -205,6 +220,12 @@ app.post('/search', async (req, res) => {
         console.log('Passwords do not match')
         res.redirect('/create');
       }
+  })
+
+  app.post('/listDelete', async (req,res)=>{
+    let itemID = req.body.foodID;
+    await deleteFoodByID(itemID);
+    res.redirect('/list');
   })
 
 app.locals.userData = globalUserData;
