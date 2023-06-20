@@ -8,6 +8,10 @@
 </head>
 <body>
     <%- include('./partials/nav.ejs') %>
+
+    <%function roundNumber(num) {%>
+        <%   return num.toFixed(2).replace(/\.0+$/, '');} %>
+       
     <article>
         <p>Hello <%=userData.User_name%>!!</p>
         <h1>Your list of Foods</h1>
@@ -20,26 +24,27 @@
             <img src="<%=e.Food_Image%>" class="back-image">
         </div>
         <div class="vertical">
-            <h1><%=e.Food_Name%></h1>
+            <h1><%= e.Food_Name%></h1>
         <div class="horizontal">
             <div class="desc calories">
-                <h3><%=e.Food_Calories%></h3>
+                <h3><%=roundNumber(Number(e.Food_Calories))%></h3>
                 <h4>Calories</h4>
             </div>
             <div class="desc protein">
-                <h3><%=e.Food_Protein%></h3>
+                <h3><%=roundNumber(Number(e.Food_Protein))%></h3>
                 <h4>Protein</h4>
             </div>
             <div class="desc fats">
-                <h3><%=e.Food_Fats%></h3>
+                <h3><%=roundNumber(Number(e.Food_Fats))%></h3>
                 <h4>Fats</h4>
             </div>
             <div class="desc fats">
-                <h3><%=e.Food_Carbs%></h3>
+                <h3><%=roundNumber(Number(e.Food_Carbs))%></h3>
                 <h4>Carbs</h4>
             </div>
             
         </div>
+        <h3>Quantity: <%=e.food_quantity%> grams</h3>
         <form action="/listDelete" method="post">
             <input type="text"  name="foodID" value="<%=e.food_entry_ID%>" readonly class="hid">
             <input type="submit" value="Delete" class="add">

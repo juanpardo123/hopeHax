@@ -358,3 +358,135 @@ padding-left: 4rem;
     padding: 0;
     margin: 0;
   }
+  .horizontal-suggest{
+    display: flex;
+    gap: 19px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: center;
+    width: 80%;
+  }
+
+  .dashboard{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: center;
+    align-items: flex-start;
+  }
+  .round-button{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 25px;
+    margin-top: 15px;
+  }
+  .rbutton{
+    aspect-ratio: 2/1;
+    height: 50px;
+    border-radius: 27px;
+    background: aquamarine;
+  }
+  .note{
+    aspect-ratio: 2/1;
+    height: 100px;
+    background: aqua;
+    margin-top: 30px;
+    border-radius: 20px;
+  }
+  .note-card{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 25px;
+    overflow-x: auto;
+  }
+  .slideshow{
+    width: 100%;
+  }
+
+  
+  .rings {
+    display: flex;
+    flex-direction: row;
+  }
+
+  
+  
+  .percent1, .percent2, svg, circle {
+    width: 200px;
+    height: 200px;
+  }
+  
+  circle {
+    fill: none;
+    stroke-width: 10;
+    transform: translate(10px, 10px);
+    stroke-dasharray: 440;
+    stroke-linecap: round;
+  }
+  
+  circle:nth-child(1) {
+    stroke-dashoffset: 0;
+    stroke: #424242;
+  }
+  
+  .percent1 circle:nth-child(2) {
+    stroke-dashoffset: calc(440 - (440 * 75) / 100);
+    stroke: gold;
+    animation: percent 1.5s linear;
+    animation-delay: 1s;
+  }
+  
+  .percent2 circle:nth-child(2) {
+    stroke-dashoffset: calc(440 - (440 * 33) / 100);
+    stroke: salmon;
+    animation: percent 1.8s linear;
+    animation-delay: 1.2s;
+  }
+  
+  .number {
+    position: relative;
+    bottom: 156px;
+    right: -61px;
+    color: #fa8072;
+  }
+  
+  h2 {
+    font-size: 48px;
+  }
+  
+  span {
+    font-size: 24px;
+    opacity: .7;
+  }
+  
+  .percent1 span {
+    color: gold;
+  }
+  
+  .percent2 span {
+    color: salmon;
+  }
+  
+  @keyframes percent {
+    0% {
+      stroke-dashoffset: 0;
+      stroke-width: 0;
+    }
+  }
+
+  .chart{
+    width: 300px;
+  }
+  

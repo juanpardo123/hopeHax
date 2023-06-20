@@ -136,11 +136,11 @@ export async function getfoodsByID(id){
 //  Food_Image: 'image' string (link to resource),
 // AddedTime: 'date' string (yyyy-mm-ddThh:mm:ss.mmmZ_) (Z= Zulu time)(T=time delimiter);
 //}
-export async function createFoods(User_ID,foodName, foodCalories, foodProtein, foodCarbs, foodFats, foodImage){
+export async function createFoods(User_ID,foodName, foodCalories, foodProtein, foodCarbs, foodFats, foodImage, grams){
    
      await pool.query(`
-     INSERT INTO UserFoods (User_ID, Food_Name, Food_Calories, Food_Protein, Food_Fats, Food_Carbs, Food_Image ) VALUES (?, ?, ? ,?, ?,?,?)
-    `, [User_ID,foodName, foodCalories, foodProtein,foodFats , foodCarbs , foodImage[0]]);
+     INSERT INTO UserFoods (User_ID, Food_Name, Food_Calories, Food_Protein, Food_Fats, Food_Carbs, Food_Image, food_quantity ) VALUES (?, ?, ? ,?, ?,?,?,?)
+    `, [User_ID,foodName, foodCalories, foodProtein,foodFats , foodCarbs , foodImage[0], grams]);
 }
 
 //delete food by ID

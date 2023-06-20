@@ -18,7 +18,9 @@
             </div>
             <div class="vertical">
                 <h1><%=data.label%></h1>
+                
             <h2>Category: <%=data.category%></h2>
+            <h3>per each 100g:</h3>
             <div class="horizontal">
                 <div class="desc calories">
                     <h3><%=data.nutrients.ENERC_KCAL%></h3>
@@ -39,6 +41,8 @@
                 
             </div>
             <form action="/save" method="post">
+                <h3>quantity:</h3>
+                <input type="number" name="grams" placeholder="grams">
                 <input type="text" value="<%=data.label%>" name="foodName" class="hid" readonly>
                 <input type="text" value="<%=data.image%>" name="foodImage" class="hid" readonly>
                 <input type="text" value="<%=data.nutrients.ENERC_KCAL%>" name="foodCalories" class="hid" readonly>

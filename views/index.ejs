@@ -5,15 +5,87 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/styles/style.css">
     <title>Main</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.4.0/dist/themes/light.css" />
+<script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.4.0/dist/shoelace.js"></script>
 </head>
 <body>
     <%- include('./partials/nav.ejs') %>
     <article>
-        <p>Hello <%=userData.User_name%>!!</p>
-        <h1>Overview</h1>
+        <div class="horizontal">
+            <div class="vertical dashboard">
+                <p>Hello <%=userData.User_name%>!!</p>
+                <h1>Dashboard:</h1>
+                <div class="slideshow">
+                    <div class="round-button">
+                        <div class="rbutton">
+
+                        </div>
+                        <div class="rbutton">
+
+                        </div>
+                        <div class="rbutton">
+
+                        </div>
+                    </div>
+                    <div class="note-card">
+                        <div class="note">
+
+                        </div>
+                        <div class="note">
+
+                        </div>
+                        <div class="note">
+
+                        </div>
+                        <div class="note">
+
+                        </div>
+                    </div>
+                    
+                </div>
+                <div>
+                    <sl-progress-ring value="50" style="--track-width: 6px; --indicator-width: 12px;">
+                    <h2>50 <br> </h2>
+                    <p></p>
+                    </sl-progress-ring>
+                </div>
+            </div>
+            <div class="vertical">
+                <div class="card">
+                    <h1>Food history</h1>
+                    <p>recently added</p>
+                </div>
+            </div>
+            
+            
+              
+              
+        </div>
         
+        <div class="chart">
+            <canvas id="myChart"></canvas>
+          </div>
     </article>
     
 </body>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+              
+<script>
+  const ctx = document.getElementById('myChart');
 
+  new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: ['Calories', 'Fats', 'Yellow', 'Green', 'Purple', 'Orange'],
+      datasets: [{
+        label: '# of Votes',
+        data: [12, 19, 3, 5, 2, 3],
+        borderWidth: 1
+      }]
+    },
+    options: {
+    
+    }
+  });
+</script>
 </html>
