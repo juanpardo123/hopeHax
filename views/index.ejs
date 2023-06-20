@@ -5,8 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/styles/style.css">
     <title>Main</title>
+    
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.4.0/dist/themes/light.css" />
-<script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.4.0/dist/shoelace.js"></script>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.4.0/dist/shoelace-autoloader.js"></script>
 </head>
 <body>
     <%- include('./partials/nav.ejs') %>
@@ -43,12 +44,6 @@
                     </div>
                     
                 </div>
-                <div>
-                    <sl-progress-ring value="50" style="--track-width: 6px; --indicator-width: 12px;">
-                    <h2>50 <br> </h2>
-                    <p></p>
-                    </sl-progress-ring>
-                </div>
             </div>
             <div class="vertical">
                 <div class="card">
@@ -63,7 +58,7 @@
         </div>
         
         <div class="chart">
-            <canvas id="myChart"></canvas>
+            <canvas id="myChart"><h1>hello</h1></canvas>
           </div>
     </article>
     
@@ -76,16 +71,24 @@
   new Chart(ctx, {
     type: 'doughnut',
     data: {
-      labels: ['Calories', 'Fats', 'Yellow', 'Green', 'Purple', 'Orange'],
       datasets: [{
-        label: '# of Votes',
-        data: [12, 19, 3, 5, 2, 3],
+        label: 'Calories consumed',
+        data: [100, 2000],
         borderWidth: 1
-      }]
+      }],
+      backgroundColor: [
+      'rgb(255, 99, 132)',
+      'rgb(54, 162, 235)'
+    ],
+    hoverOffset: 4
     },
     options: {
     
     }
   });
+</script>
+<script>
+    let chart = document.getElementById('chart');
+   chart.value = 50;
 </script>
 </html>

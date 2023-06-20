@@ -307,4 +307,9 @@ app.post("/recipeItems", async (req, res) => {
   }
 });
 
+app.get('/aboutUs',(req,res)=>{
+  res.render('about-us');
+})
+
+
 app.locals.userData = globalUserData;
