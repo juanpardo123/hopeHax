@@ -1,137 +1,247 @@
-import bodyParser from "body-parser";
-import express from "express";
+import bodyParser from 'body-parser';
+import express from 'express';
 
 //imports bcrypt. bcrypt is used to hash and salt user passwords.
-// import bcrypt from "bcrypt";
+import bcrypt from 'bcrypt';
 //import axios. axios in this application is used to handle API requests.
-import axios from "axios";
+import axios from 'axios';
 
-import {
-  getfoodsByID,
-  createUser,
-  createFoods,
-  getUsers,
-  getUserInfo,
-  createUserInfo,
-  getUserIDByUserName,
-  deleteFoodByID,
-} from "./database.js";
+import { getfoodsByID, createUser, createFoods, getUsers, getUserInfo, createUserInfo, getUserIDByUserName, deleteFoodByID} from './database.js'
+
+
+
 
 export let globalUserID = null;
 export let globalUserData = null;
 
+
 const app = express();
 const port = 3000;
 
-const app_id = "e74cfc4c";
-const app_key = "f2390ae95179e70da980b011ef24d3f1";
+
+
 
 //allows for body of requests to be read (ex. req.body.foo )
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({extended:true}));
 
 //sets the render engine to be ejs. allows the use of .ejs files
-app.set("view engine", "ejs");
+app.set('view engine', 'ejs');
 
-//makes the 'public' folder globally accessible
-app.use(express.static("public"));
+//makes the 'public' folder globally accessible 
+app.use( express.static( "public" ) );
+
 
 //creates server at specified port
-app.listen(port, () => {
-  console.log(`listening at ${port}`);
+app.listen(port,()=>{
+    console.log(`listening at ${port}`);
 });
+
 
 //handles get request for default route.
-//if user is logged in
-// 'index' page is rendered with appropriate User info
-//else
-//login page is rendered
-app.get("/", (req, res) => {
-  if (globalUserID) {
-    res.render("index", { userData: globalUserData });
-  } else {
-    res.render("login");
+  //if user is logged in
+      // 'index' page is rendered with appropriate User info
+  //else
+      //login page is rendered
+app.get('/', (req,res)=>{
+  if(globalUserID){
+    
+    res.render('index', {userData: globalUserData});
+  }else{
+    res.render('login');
   }
-});
+   
+})
 
-//Handles post request for search.
+//Handles post request for search. 
 //  If user is logged in
-// the input on the search field is passed to the getItemApi function and if succesful renders 'singleItem'page with respective result and user info.
-// else
-// login page is rendered
-app.post("/search", async (req, res) => {
-  if (globalUserID) {
+      // the input on the search field is passed to the getItemApi function and if succesful renders 'singleItem'page with respective result and user info.
+// else 
+      // login page is rendered
+app.post('/search', async (req, res) => {
+  if(globalUserID){
     let search = req.body.name;
     try {
       let result = await getItemApi(search);
-      res.render("singleItem", { data: result, userData: globalUserData });
+      res.render('singleItem', {data:result,userData: globalUserData});
     } catch {
-      let suggestions = getSuggestionsApi(search.substring(0, 3));
-      res.render("suggestions", {
-        data: suggestions,
-        userData: globalUserData,
-      });
+      let suggestions = await getSuggestionsApi(search.substring(0, 3));
+      res.render('suggestions', {data:suggestions ,userData: globalUserData})
     }
-  } else {
-    res.render("login");
+  }else{
+    res.render('login');
   }
-});
-
-//handles post request for login.
-//Verifies if the username and password combination exist within data base. (password is compared with stored password hash using bcrypt).
-//if sucessful
-//main page is rendered with appropiate user info.
-//else
-//user is redirected to default page (login page)
-app.post("/login", async (req, res) => {
-  let userName = req.body.userName;
-  let password = req.body.password;
-
-  let data = await getUsers();
-  let successfulLogin = false;
-  data.forEach((element) => {
-    let passCheck = true;
-    let userCheck = userName == element.Username;
-    if (passCheck && userCheck) {
-      globalUserID = element.ID;
-      successfulLogin = true;
-    }
+    
   });
 
-  if (successfulLogin) {
-    globalUserData = await getUserInfo(globalUserID);
-    res.render("index", { userData: globalUserData });
-  } else {
-    res.redirect("/");
-  }
-});
+//handles post request for login. 
+//Verifies if the username and password combination exist within data base. (password is compared with stored password hash using bcrypt). 
+//if sucessful
+    //main page is rendered with appropiate user info. 
+//else
+    //user is redirected to default page (login page)
+  app.post('/login', async (req, res) => {
+    let userName = req.body.userName;
+    let password = req.body.password;
+    
+    let data = await getUsers();
+    let successfulLogin = false;
+    data.forEach(element => {
+      let passCheck = bcrypt.compareSync(password, element.Password);
+      let userCheck = (userName == element.Username);
+      if(passCheck && userCheck){
+        globalUserID = element.ID;
+        successfulLogin = true;
+
+      }
+     
+     });
+
+    if(successfulLogin){
+      globalUserData = await getUserInfo(globalUserID);
+      res.render('index', {userData: globalUserData})
+    }
+    else{
+      res.redirect('/');
+    }
+    
+  })
 
 //handles post request for saving food info.
-// Takes the properties of the searched item and saves it into the database along with the appropriate userID. For later reference.
+// Takes the properties of the searched item and saves it into the database along with the appropriate userID. For later reference. 
 //user is then redirected to main page (Dashboard)
-app.post("/save", (req, res) => {
-  let foodName = req.body.foodName;
-  let foodCalories = Number(req.body.foodCalories);
-  let foodProtein = Number(req.body.foodProtein);
-  let foodFats = Number(req.body.foodFats);
-  let foodCarbs = Number(req.body.foodCarbs);
-  let foodImage = req.body.foodImage;
-  createFoods(
-    globalUserID,
-    foodName,
-    foodCalories,
-    foodProtein,
-    foodCarbs,
-    foodFats,
-    foodImage
-  );
-  res.redirect("/");
-});
+  app.post('/save', (req,res)=>{
+    let grams = req.body.grams;
+    
+    let foodName =  req.body.foodName;
+    let foodCalories = calculateCalories((Number(req.body.foodCalories)), grams) ;
+    let foodProtein = calculateCalories((Number(req.body.foodProtein)), grams) ;
+    let foodFats = calculateCalories((Number(req.body.foodFats)), grams);
+    let foodCarbs = calculateCalories((Number(req.body.foodCarbs)), grams);
+    let foodImage = req.body.foodImage;
 
-//calls api request with search of specified item
-//if found successfully
-//object with details is returned
+    createFoods(globalUserID,foodName, foodCalories, foodProtein, foodCarbs, foodFats, foodImage, grams);
+    res.redirect("/")
+  })
+  
+
+//handles get request for "/list" (Food List).
+//if user is logged in
+    //a function that retreives the foods based on the user id is called. page 'userItems is then rendered with appropriate details
 //else
-//error is thrown
+    //user is redirected to default page (Login page)
+  app.get('/list', async (req,res)=>{
+    if(globalUserID){
+      let userFoodList = await getfoodsByID(globalUserID);
+      res.render('userItems',{foodList:userFoodList,userData: globalUserData });
+    } else{
+      res.redirect('/');
+    }
+  
+  })
+
+  //handles post request to log out user. globalUserID and globalUserData are initiallized.
+  app.post('/logOut', (req,res)=>{
+     globalUserID = null;
+    globalUserData = null;
+    res.redirect('/')
+  })
+
+//handles get request for '/profile' (user profile page)
+//if user is logged in 
+    //profile page is rendered with appropriate data
+//else
+    // user is redirected to default page (login page)
+  
+  app.get('/profile', async (req,res)=>{
+    if(globalUserID){
+      res.render('profile',{userData: globalUserData });
+    } else{
+      res.redirect('/');
+    }
+  
+  })
+
+//Handles get request for '/create'. renders the signup user page
+  app.get('/create',(req,res)=>{
+   res.render('create');
+  })
+
+
+  //handles post request for creating a new user
+  app.post('/create', async (req,res)=>{
+      let username = req.body.userName;
+      let password = req.body.password;
+      let passwordRepeat = req.body.passwordrepeat;
+      let name = req.body.name;
+      let height = req.body.height;
+      let weight = req.body.weight;
+    let target = Number(req.body.target);
+
+      if(password == passwordRepeat){
+        let User = await createUser(username,password);
+        let newUserID = await getUserIDByUserName(User);
+        console.log('-------------->',newUserID)
+        if(newUserID){
+          await createUserInfo(newUserID ,name, height, weight, target);
+          res.redirect('/')
+        }else{
+          console.log('user name is not available')
+          res.redirect('/create');
+        }
+      }else{
+        //replace with handled error
+        console.log('Passwords do not match')
+        res.redirect('/create');
+      }
+  })
+
+  app.post('/listDelete', async (req,res)=>{
+    let itemID = req.body.foodID;
+    await deleteFoodByID(itemID);
+    res.redirect('/list');
+  })
+
+
+
+//ROUTE HANDLING
+app.get("/recipes", async (req, res) => {
+  const query = req.query.query; //grabbing query parameter from request
+  try {
+    const recipes = await getRecipes(query);
+    if (recipes.length > 0) {
+      res.render("recipes", { recipes: recipes }); //Showing the template on browser with the data
+    } else {
+      res.render("recipes", { recipes: null });
+    }
+  } catch (error) {
+    ///console.log(error);
+    res.status(500).send("ERROR ERROR ERROR");
+  }
+});
+//------------API's---------------
+
+
+async function getSuggestionsApi(initials) {
+  const url = `https://api.edamam.com/auto-complete?app_id=ec4bcbe9&app_key=c4e46792050ed99dfd8d58e9e9101c63&q=${initials}&limit=10
+  `;
+  try {
+    const response = await axios.get(url);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
+
+//calls api request with search of specified item 
+//if found successfully 
+    //object with details is returned  
+//else 
+    //error is thrown  
+
+    const app_id = '061a2f9a';
+const app_key = '6a719576f78b348e623127896290738c'
+
 async function getItemApi(ingredient) {
   const url = `https://api.edamam.com/api/food-database/v2/parser?app_id=${app_id}&app_key=${app_key}&ingr=${ingredient}`;
   try {
@@ -144,96 +254,13 @@ async function getItemApi(ingredient) {
   }
 }
 
-async function getSuggestionsApi(initials) {
-  const url = `https://api.edamam.com/auto-complete?app_id=ec4bcbe9&app_key=c4e46792050ed99dfd8d58e9e9101c63&q=${initials}&limit=10
-    `;
-  try {
-    const response = await axios.get(url);
-    return response.data;
-  } catch (error) {
-    console.error(error);
-    throw error;
-  }
+
+function calculateCalories(item, amount){
+    let newValue = item / 100;
+    let total = newValue * amount;
+    return total;
 }
 
-getSuggestionsApi("app");
-
-//handles get request for "/list" (Food List).
-//if user is logged in
-//a function that retreives the foods based on the user id is called. page 'userItems is then rendered with appropriate details
-//else
-//user is redirected to default page (Login page)
-app.get("/list", async (req, res) => {
-  if (globalUserID) {
-    let userFoodList = await getfoodsByID(globalUserID);
-    res.render("userItems", {
-      foodList: userFoodList,
-      userData: globalUserData,
-    });
-  } else {
-    res.redirect("/");
-  }
-});
-
-//handles post request to log out user. globalUserID and globalUserData are initiallized.
-app.post("/logOut", (req, res) => {
-  globalUserID = null;
-  globalUserData = null;
-  res.redirect("/");
-});
-
-//handles get request for '/profile' (user profile page)
-//if user is logged in
-//profile page is rendered with appropriate data
-//else
-// user is redirected to default page (login page)
-
-app.get("/profile", async (req, res) => {
-  if (globalUserID) {
-    res.render("profile", { userData: globalUserData });
-  } else {
-    res.redirect("/");
-  }
-});
-
-//Handles get request for '/create'. renders the signup user page
-app.get("/create", (req, res) => {
-  res.render("create");
-});
-
-//handles post request for creating a new user
-app.post("/create", async (req, res) => {
-  let username = req.body.userName;
-  let password = req.body.password;
-  let passwordRepeat = req.body.passwordrepeat;
-  let name = req.body.name;
-  let height = req.body.height;
-  let weight = req.body.weight;
-  let target = Number(req.body.target);
-
-  if (password == passwordRepeat) {
-    let User = await createUser(username, password);
-    let newUserID = await getUserIDByUserName(User);
-    console.log("-------------->", newUserID);
-    if (newUserID) {
-      await createUserInfo(newUserID, name, height, weight, target);
-      res.redirect("/");
-    } else {
-      console.log("user name is not available");
-      res.redirect("/create");
-    }
-  } else {
-    //replace with handled error
-    console.log("Passwords do not match");
-    res.redirect("/create");
-  }
-});
-
-app.post("/listDelete", async (req, res) => {
-  let itemID = req.body.foodID;
-  await deleteFoodByID(itemID);
-  res.redirect("/list");
-});
 
 //RECIPES PAGE
 const app_id2 = "f6811248";
@@ -266,7 +293,6 @@ app.get("/recipes", async (req, res) => {
     res.status(500).send("ERROR ERROR ERROR");
   }
 });
-
 app.post("/recipeItems", async (req, res) => {
   const search2 = req.body.query;
   try {
