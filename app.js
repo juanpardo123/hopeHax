@@ -10,6 +10,7 @@ import { getfoodsByID, createUser, createFoods, getUsers, getUserInfo, createUse
 
 
 
+
 export let globalUserID = null;
 export let globalUserData = null;
 
@@ -17,8 +18,7 @@ export let globalUserData = null;
 const app = express();
 const port = 3000;
 
-const app_id = 'e74cfc4c';
-const app_key = 'f2390ae95179e70da980b011ef24d3f1'
+
 
 
 //allows for body of requests to be read (ex. req.body.foo )
@@ -44,6 +44,7 @@ app.listen(port,()=>{
       //login page is rendered
 app.get('/', (req,res)=>{
   if(globalUserID){
+    
     res.render('index', {userData: globalUserData});
   }else{
     res.render('login');
@@ -63,7 +64,7 @@ app.post('/search', async (req, res) => {
       let result = await getItemApi(search);
       res.render('singleItem', {data:result,userData: globalUserData});
     } catch {
-      let suggestions = getSuggestionsApi(search.substring(0, 3));
+      let suggestions = await getSuggestionsApi(search.substring(0, 3));
       res.render('suggestions', {data:suggestions ,userData: globalUserData})
     }
   }else{
@@ -109,47 +110,19 @@ app.post('/search', async (req, res) => {
 // Takes the properties of the searched item and saves it into the database along with the appropriate userID. For later reference. 
 //user is then redirected to main page (Dashboard)
   app.post('/save', (req,res)=>{
-    let foodName = req.body.foodName;
-    let foodCalories = Number(req.body.foodCalories);
-    let foodProtein = Number(req.body.foodProtein);
-    let foodFats = Number(req.body.foodFats);
-    let foodCarbs = Number(req.body.foodCarbs);
+    let grams = req.body.grams;
+    
+    let foodName =  req.body.foodName;
+    let foodCalories = calculateCalories((Number(req.body.foodCalories)), grams) ;
+    let foodProtein = calculateCalories((Number(req.body.foodProtein)), grams) ;
+    let foodFats = calculateCalories((Number(req.body.foodFats)), grams);
+    let foodCarbs = calculateCalories((Number(req.body.foodCarbs)), grams);
     let foodImage = req.body.foodImage;
-    createFoods(globalUserID,foodName, foodCalories, foodProtein, foodCarbs, foodFats, foodImage);
+
+    createFoods(globalUserID,foodName, foodCalories, foodProtein, foodCarbs, foodFats, foodImage, grams);
     res.redirect("/")
   })
   
-//calls api request with search of specified item 
-//if found successfully 
-    //object with details is returned  
-//else 
-    //error is thrown  
-  async function getItemApi(ingredient) {
-    const url = `https://api.edamam.com/api/food-database/v2/parser?app_id=${app_id}&app_key=${app_key}&ingr=${ingredient}`;
-    try {
-      const response = await axios.get(url);
-      const data = response.data;
-      return data.parsed[0].food;
-    } catch (error) {
-      console.error(error);
-      throw error;
-    }
-  }
-
-
-  async function getSuggestionsApi(initials) {
-    const url = `https://api.edamam.com/auto-complete?app_id=ec4bcbe9&app_key=c4e46792050ed99dfd8d58e9e9101c63&q=${initials}&limit=10
-    `;
-    try {
-      const response = await axios.get(url);
-      return response.data;
-    } catch (error) {
-      console.error(error);
-      throw error;
-    }
-  }
-
-  getSuggestionsApi('app');
 
 //handles get request for "/list" (Food List).
 //if user is logged in
@@ -229,21 +202,7 @@ app.post('/search', async (req, res) => {
   })
 
 
-  const app_id2 = "f6811248";
-const app_key2 = "55aebe44f4785021c5eb4276e7f46710";
-async function getRecipes(query) {
-  const url2 = `https://api.edamam.com/search?app_id=${app_id2}&app_key=${app_key2}&q=${query}`;
-  try {
-    const response = await axios.get(url2);
-    // console.log(response);
-    const data = response.data;
-    console.log(data.hits);
-    return data.hits;
-  } catch (error) {
-    console.error(error);
-    return [];
-  }
-}
+
 //ROUTE HANDLING
 app.get("/recipes", async (req, res) => {
   const query = req.query.query; //grabbing query parameter from request
@@ -255,10 +214,66 @@ app.get("/recipes", async (req, res) => {
       res.render("recipes", { recipes: null });
     }
   } catch (error) {
-    console.log(error);
+    ///console.log(error);
     res.status(500).send("ERROR ERROR ERROR");
   }
 });
+//------------API's---------------
 
+const app_id2 = "f6811248";
+const app_key2 = "55aebe44f4785021c5eb4276e7f46710";
+async function getRecipes(query) {
+  const url2 = `https://api.edamam.com/search?app_id=${app_id2}&app_key=${app_key2}&q=${query}`;
+  try {
+    const response = await axios.get(url2);
+    // console.log(response);
+    const data = response.data;
+    //console.log(data.hits);
+    return data.hits;
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+}
+
+async function getSuggestionsApi(initials) {
+  const url = `https://api.edamam.com/auto-complete?app_id=ec4bcbe9&app_key=c4e46792050ed99dfd8d58e9e9101c63&q=${initials}&limit=10
+  `;
+  try {
+    const response = await axios.get(url);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
+
+//calls api request with search of specified item 
+//if found successfully 
+    //object with details is returned  
+//else 
+    //error is thrown  
+
+    const app_id = '061a2f9a';
+const app_key = '6a719576f78b348e623127896290738c'
+
+async function getItemApi(ingredient) {
+  const url = `https://api.edamam.com/api/food-database/v2/parser?app_id=${app_id}&app_key=${app_key}&ingr=${ingredient}`;
+  try {
+    const response = await axios.get(url);
+    const data = response.data;
+    return data.parsed[0].food;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
+
+
+function calculateCalories(item, amount){
+    let newValue = item / 100;
+    let total = newValue * amount;
+    return total;
+}
 app.locals.userData = globalUserData;
 
