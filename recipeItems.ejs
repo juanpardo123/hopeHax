@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/styles/style.css" />
+    <title>Recipe Cards</title>
+  </head>
+  <body>
+    <%- include('./partials/nav.ejs') %>
+    <article>
+      <p>Hello !!</p>
+      <h1>Search result:</h1>
+      <% for (let i=0; i< recipes.length; i++) { %>
+      <div class="card">
+        <div class="holder">
+          <img src="<%=recipes[i].recipe.image%>" class="main-recipe-image" />
+        </div>
+        <div class="vertical">
+          <h1><%=recipes[i].recipe.label%></h1>
+          <h2>Meal Type: <%=recipes[i].recipe.mealType%></h2>
+          <div class="horizontal">
+            <div class="desc calories">
+              <h3><%=Math.round(recipes[i].recipe.calories)%></h3>
+              <h4>Calories</h4>
+            </div>
+            <div class="desc protein">
+              <h3><%=Math.round(recipes[i].recipe.totalWeight)%></h3>
+              <h4>Total Weight</h4>
+            </div>
+            <div class="desc fats">
+              <h3><%=recipes[i].recipe.yield%></h3>
+              <h4>Yields</h4>
+            </div>
+            <div class="recipe ingredients">
+              <h3>
+                <h4>Ingredients</h4>
+                <%recipes[i].recipe.ingredients.forEach(function(ingredient){ %>
+              </h3>
+              <!-- <h4><%= ingredient.text %></h4> -->
+              <p><%= ingredient.text %></p>
+              <% }); %>
+            </div>
+          </div>
+
+          <!-- <form action="/recipes" method="GET">
+            <input
+              type="text"
+              name="query"
+              placeholder="What Kind of Recipe?"
+            />
+            <button type="submit" class="button2">Search</button>
+          </form> -->
+          <form action="/save" method="post">
+            <input
+              type="text"
+              value="<%=recipes[i].recipe.label%>"
+              name="foodName"
+              class="hid"
+              readonly
+            />
+            <input
+              type="text"
+              value="<%=recipes[i].recipe.image%>"
+              name="foodImage"
+              class="hid"
+              readonly
+            />
+            <input
+              type="text"
+              value="<%=recipes[i].recipe.calories%>"
+              name="foodCalories"
+              class="hid"
+              readonly
+            />
+            <input
+              type="text"
+              value="<%=recipes[i].recipe.totalWeight%>"
+              name="foodProtein"
+              class="hid"
+              readonly
+            />
+            <input
+              type="text"
+              value="<%=recipes[i].recipe.totalTime%>"
+              name="foodFats"
+              class="hid"
+              readonly
+            />
+            <input
+              type="text"
+              value="<%=recipes[i].recipe.yield%>"
+              name="foodCarbs"
+              class="hid"
+              readonly
+            />
+            <input
+              type="text"
+              value="<%=recipes[i].recipe.image%>"
+              name="foodImage"
+              class="hid"
+              readonly
+            />
+            <input type="submit" value="save" class="add" />
+          </form>
+        </div>
+      </div>
+      <% } %>
+    </article>
+  </body>
+</html>
