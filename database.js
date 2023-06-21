@@ -124,6 +124,18 @@ export async function getfoodsByID(id){
     return result;
 }
 
+export async function getfoodsHistoryByID(id){
+    const [result] = await pool.query(`
+    select * 
+    from UserFoods 
+    where User_ID = ?
+     order by AddedTime desc
+    limit  3
+   
+    `, [id]);
+    return result;
+}
+
 //creates an entry in the SQL database for the given food with the given parameters in the following format:
 //Finds foods for the user based on their id and returns an object
 //{

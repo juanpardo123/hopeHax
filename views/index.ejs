@@ -44,22 +44,58 @@
                     </div>
                     
                 </div>
+                <h1 class="overview">Daily overview:</h1>
+                <div class="chart">
+                    <canvas id="myChart"><h1>hello</h1></canvas>
+                  </div>
             </div>
             <div class="vertical">
-                <div class="card">
+                <div class="card food-history">
                     <h1>Food history</h1>
                     <p>recently added</p>
+             <% foodData.forEach(e=>{ %>
+                <div class="food-holder">
+                    <h5><%=e.Food_Name%></h5>
+                    <div class="horizontal">
+                        <div class="desc calories">
+                            <h5><%=e.Food_Calories%></h5>
+                            <h6>Calories</h6>
+                        </div>
+                        <div class="desc protein">
+                            <h5><%=e.Food_Protein%></h5>
+                            <h6>Protein</h6>
+                        </div>
+                        <div class="desc fats">
+                            <h5><%=e.Food_Fats%></h5>
+                            <h6>Fats</h6>
+                        </div>
+                        <div class="desc fats">
+                            <h5><%=e.Food_Carbs%></h5>
+                            <h6>Carbs</h6>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+            <% }) %>      
+                    
+                    
+                    
+                    
+                   
                 </div>
             </div>
             
-            
+           
               
               
         </div>
         
-        <div class="chart">
-            <canvas id="myChart"><h1>hello</h1></canvas>
-          </div>
+      
+          <h1 class="hid" id="items"><%=totalItems%></h1>
+          <h1 class="hid" id="calories"><%=totalCalories%></h1>
+          <h1 class="hid" id="target"><%=target%></h1>
+          <h1 class="hid" id="remaining"><%=remaining%></h1>
     </article>
     
 </body>
@@ -67,13 +103,20 @@
               
 <script>
   const ctx = document.getElementById('myChart');
+  let data = document.getElementById('calories').innerText;
+  let data2 = document.getElementById('target').innerText;
+  let data3 = document.getElementById('remaining').innerText;
 
   new Chart(ctx, {
     type: 'doughnut',
     data: {
+        labels: [
+    'Calories Consumed',
+    'Calories Remaining',
+  ],
       datasets: [{
-        label: 'Calories consumed',
-        data: [100, 2000],
+        label: 'Calories',
+        data: [data, data3],
         borderWidth: 1
       }],
       backgroundColor: [
@@ -83,7 +126,12 @@
     hoverOffset: 4
     },
     options: {
-    
+        legend: {
+            labels: {
+                position: 'bottom',
+                fontColor: 'orange' // Change the label color to orange
+            }
+        }
     }
   });
 </script>

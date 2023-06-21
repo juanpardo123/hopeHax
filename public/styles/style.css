@@ -173,7 +173,7 @@ padding-left: 4rem;
     display: flex;
     gap: 19px;
     flex-direction: row;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     align-content: center;
     justify-content: flex-start;
     align-items: center;
@@ -493,6 +493,77 @@ padding-left: 4rem;
   }
 
   .chart{
-    width: 300px;
+    display: flex;
+    width: 100%;
+    height: 300px;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3rem;
   }
-  
+  .food-holder{
+    border-style: solid;
+    border-right: 0px;
+    border-top: 0px;
+    border-left: 0px;
+    border-color: #00000026;
+  }
+
+  .calories h5{
+    background-color: #ff435bcf;
+    border-style: solid;
+    border-color: #00000008;
+    box-shadow: 0px 0px 20px 6px #fc64796b;
+
+  }
+
+  .protein h5{
+    background-color: #f79757b3;
+    border-style: solid;
+    border-color: #00000008;
+    box-shadow: 0px 0px 20px 6px #f58c4657;
+
+}
+
+.fats h5{
+  background-color: #F8E18A;
+  border-style: solid;
+  border-color: #00000008;
+  box-shadow: 0px 0px 20px 6px #f8e18a78;
+
+}
+
+  .desc h5{
+    display: flex;
+    height: 38px;
+    aspect-ratio: 1/1;
+    padding: 8px;
+    /* width: 50px; */
+    text-align: center;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    border-radius: 100px;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+  }
+
+  h6{
+    margin:10px
+  }
+  .food-history{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+    align-items: flex-start;
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+  .overview{
+    margin: 1.4rem;
+  }

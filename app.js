@@ -6,7 +6,7 @@ import bcrypt from 'bcrypt';
 //import axios. axios in this application is used to handle API requests.
 import axios from 'axios';
 
-import { getfoodsByID, createUser, createFoods, getUsers, getUserInfo, createUserInfo, getUserIDByUserName, deleteFoodByID} from './database.js'
+import { getfoodsByID, createUser, createFoods, getUsers, getUserInfo, createUserInfo, getUserIDByUserName, deleteFoodByID, getfoodsHistoryByID} from './database.js'
 
 
 
@@ -42,10 +42,29 @@ app.listen(port,()=>{
       // 'index' page is rendered with appropriate User info
   //else
       //login page is rendered
-app.get('/', (req,res)=>{
+app.get('/', async (req,res)=>{
   if(globalUserID){
+    let foods = await getfoodsByID(globalUserID);
+    let foodData = await getfoodsHistoryByID(globalUserID);
+    let totalCalories = 0;
+    let totalItems= 0;
+    let target = globalUserData.User_target_calories;
+    foods.forEach(e=>{
+      totalCalories += Number(e.Food_Calories);
+      totalItems++;
+    })
+    let remaining = target - totalCalories; 
+    console.log(foodData);
+    res.render('index', 
+    {
+      userData: globalUserData,
+      totalCalories: totalCalories,
+      totalItems: totalItems,
+      target: target,
+      remaining: remaining,
+      foodData: foodData
     
-    res.render('index', {userData: globalUserData});
+    });
   }else{
     res.render('login');
   }
@@ -98,7 +117,7 @@ app.post('/search', async (req, res) => {
 
     if(successfulLogin){
       globalUserData = await getUserInfo(globalUserID);
-      res.render('index', {userData: globalUserData})
+      res.redirect('/');
     }
     else{
       res.redirect('/');
