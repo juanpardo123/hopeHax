@@ -7,15 +7,15 @@
   /* --backdrop:  #7DA2A9;
   --background-color:#F7F7F7;
   --accent1: #7DA2A9;  Color scheme 2*/
-/* 
+
   --backdrop:   #D48166;
   --background-color:#E6E2DD ;
-  --accent1: #373A36; Color 3*/ 
+  --accent1: #373A36; 
 
-  --backdrop:   #EBA63F;
+  /* --backdrop:   #EBA63F;
   --background-color:#F7F4E9 ;
   --accent1: #E40C2B;
-  
+  --buttons: #000000; */
 
 }
 
@@ -615,3 +615,7 @@ transition: all 0.2s;
   
 }
 
+svg{
+  height: 40px;
+  fill:var(--buttons)
+}
