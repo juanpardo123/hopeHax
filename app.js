@@ -47,10 +47,16 @@ app.get('/', async (req,res)=>{
     let foods = await getfoodsByID(globalUserID);
     let foodData = await getfoodsHistoryByID(globalUserID);
     let totalCalories = 0;
+    let totalProtein = 0;
+    let totalCarbs = 0;
+    let totalFats = 0;
     let totalItems= 0;
     let target = globalUserData.User_target_calories;
     foods.forEach(e=>{
       totalCalories += Number(e.Food_Calories);
+      totalProtein += Number(e.Food_Protein);
+      totalCarbs += Number(e.Food_Carbs);
+      totalFats += Number(e.Food_Fats);
       totalItems++;
     })
     let remaining = target - totalCalories; 
@@ -59,6 +65,9 @@ app.get('/', async (req,res)=>{
     {
       userData: globalUserData,
       totalCalories: totalCalories,
+      totalProtein: totalProtein,
+      totalCarbs: totalCarbs,
+      totalFats: totalFats,
       totalItems: totalItems,
       target: target,
       remaining: remaining,

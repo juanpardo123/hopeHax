@@ -177,6 +177,7 @@ padding-left: 4rem;
     align-content: center;
     justify-content: flex-start;
     align-items: center;
+    width: 80%;
 }
 
 .protein h3{
@@ -400,8 +401,8 @@ padding-left: 4rem;
     background: aquamarine;
   }
   .note{
-    aspect-ratio: 2/1;
-    height: 100px;
+    aspect-ratio: 16/9;
+    height: 151px;
     background: aqua;
     margin-top: 30px;
     border-radius: 20px;
@@ -415,7 +416,7 @@ padding-left: 4rem;
     justify-content: flex-start;
     align-items: center;
     gap: 25px;
-    overflow-x: auto;
+    transition: all;
   }
   .slideshow{
     width: 100%;
@@ -566,4 +567,7 @@ padding-left: 4rem;
   }
   .overview{
     margin: 1.4rem;
+  }
+  *{
+transition: all;
   }

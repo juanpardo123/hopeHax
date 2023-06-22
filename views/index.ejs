@@ -12,50 +12,57 @@
 <body>
     <%- include('./partials/nav.ejs') %>
     <article>
+        <p>Hello <%=userData.User_name%>!!</p>
+        <h1>Dashboard:</h1>
+        <div class="slideshow">
+            <div class="round-button">
+                <div class="rbutton">
+
+                </div>
+                <div class="rbutton">
+
+                </div>
+                <div class="rbutton">
+
+                </div>
+            </div>
+            <div class="note-card">
+                <div class="note">
+
+                </div>
+                <div class="note">
+
+                </div>
+                <div class="note">
+
+                </div>
+                <div class="note">
+
+                </div>
+            </div>
+            
+        </div>
         <div class="horizontal">
             <div class="vertical dashboard">
-                <p>Hello <%=userData.User_name%>!!</p>
-                <h1>Dashboard:</h1>
-                <div class="slideshow">
-                    <div class="round-button">
-                        <div class="rbutton">
-
-                        </div>
-                        <div class="rbutton">
-
-                        </div>
-                        <div class="rbutton">
-
-                        </div>
-                    </div>
-                    <div class="note-card">
-                        <div class="note">
-
-                        </div>
-                        <div class="note">
-
-                        </div>
-                        <div class="note">
-
-                        </div>
-                        <div class="note">
-
-                        </div>
-                    </div>
-                    
-                </div>
+             
+                
                 <h1 class="overview">Daily overview:</h1>
                 <div class="chart">
                     <canvas id="myChart"><h1>hello</h1></canvas>
                   </div>
+                <h2 class="overview">Total Nutrients:</h2>
+                  <div class="chart">
+                    <canvas id="lineGraph"><h1>hello</h1></canvas>
+                  </div>
             </div>
+            
             <div class="vertical">
                 <div class="card food-history">
                     <h1>Food history</h1>
                     <p>recently added</p>
              <% foodData.forEach(e=>{ %>
                 <div class="food-holder">
-                    <h5><%=e.Food_Name%></h5>
+                    <h5><%=e.Food_Name%>: <%=e.food_quantity%> g</h5>
                     <div class="horizontal">
                         <div class="desc calories">
                             <h5><%=e.Food_Calories%></h5>
@@ -96,6 +103,9 @@
           <h1 class="hid" id="calories"><%=totalCalories%></h1>
           <h1 class="hid" id="target"><%=target%></h1>
           <h1 class="hid" id="remaining"><%=remaining%></h1>
+          <h1 class="hid" id="totalProtein"><%=totalProtein%></h1>
+          <h1 class="hid" id="totalCarbs"><%=totalCarbs%></h1>
+          <h1 class="hid" id="totalFats"><%=totalFats%></h1>
     </article>
     
 </body>
@@ -103,6 +113,7 @@
               
 <script>
   const ctx = document.getElementById('myChart');
+  const ctx2 = document.getElementById('lineGraph');
   let data = document.getElementById('calories').innerText;
   let data2 = document.getElementById('target').innerText;
   let data3 = document.getElementById('remaining').innerText;
@@ -134,9 +145,47 @@
         }
     }
   });
+
+  let totalCarbs = document.getElementById('totalCarbs').innerText;
+  let totalProtein = document.getElementById('totalProtein').innerText;
+  let totalFats = document.getElementById('totalFats').innerText;
+
+  new Chart(ctx2, {
+    type: 'polarArea',
+    data: {
+        labels: [
+    'Protein',
+    'Carbs',
+    'fats'
+  ],
+      datasets: [{
+       
+        
+        data: [totalCarbs, totalCarbs,totalFats],
+        borderWidth: 1
+      }],
+      backgroundColor: [
+      'rgb(255, 99, 132)',
+      'rgb(75, 192, 192)',
+      'rgb(255, 205, 86)',
+      'rgb(201, 203, 207)',
+      'rgb(54, 162, 235)'
+    ],
+    hoverOffset: 4
+    },
+    options: {
+  }
+  });
 </script>
-<script>
-    let chart = document.getElementById('chart');
-   chart.value = 50;
-</script>
+<style>
+    .note{
+        background-image: url(/images/food1.jpg);
+        background-size: cover;
+        transition: all;
+    }
+    .note:hover{
+        transition: all;
+        transform: scale(1.2);
+    }
+</style>
 </html>
