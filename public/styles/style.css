@@ -619,3 +619,129 @@ svg{
   height: 40px;
   fill:var(--buttons)
 }
+
+/* Recipes Page Styling */
+.recipeButtonsContainer {
+  display: flex;
+  justify-content: flex-start;
+}
+.rb {
+  width: 160px;
+  height: 60px;
+  font-size: 15px;
+  border: solid 1px #1a1110;
+  border-radius: 47px;
+  margin: 20px;
+  box-shadow: -5px 7px 5px 0px #818483;
+  transition: transform 0.3s;
+}
+.rb:hover {
+  transform: scale(1.1) translateZ(0);
+}
+.breakfast {
+  background: rgba(250, 190, 44, 0.28);
+}
+.lunch {
+  background: rgba(136, 53, 220, 0.28);
+}
+.dinner {
+  background: rgba(181, 211, 190, 0.79);
+}
+.snacks {
+  background: rgba(255, 67, 91, 0.79);
+}
+.allRecipes {
+  background: rgba(126, 216, 246, 0.28);
+}
+/* End Of Recipe Button Styling */
+
+/* side section */
+
+.foodWheel {
+  margin-top: 40px;
+  /* margin-right: 80rem; */
+  transition: width 2s, height 2s, background-color 2s, rotate 2s;
+}
+.foodWheel:hover {
+  rotate: 180deg;
+}
+
+#recipeCatalog {
+  position: relative;
+  /*  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  flex-direction: column; */
+  width: 400px;
+  height: 500px;
+  background: rgba(255, 67, 91, 0.79);
+  box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.17);
+  border-radius: 88px;
+  /* margin-left: 30rem;
+  margin-right: auto; */
+  /* margin-top: 4rem; */
+  padding: 2rem;
+  text-align: center;
+}
+.recipeMainImage {
+  height: 300px;
+  width: 300px;
+  margin-top: 2rem;
+}
+#recipeTopSection {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 90px;
+}
+.linkRecipes {
+}
+#linkRecipesUrl {
+  text-decoration: none;
+  background-color: #eeeeee;
+  color: #333333;
+  padding: 2px 6px 2px 6px;
+  border-top: 1px solid #cccccc;
+  border-right: 1px solid #333333;
+  border-bottom: 1px solid #333333;
+  border-left: 1px solid #cccccc;
+}
+
+/* .favRecipesRows {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  background: orange;
+} */
+.favRecipesCards {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px;
+  width: 300px;
+  height: 400px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+  border-radius: 88px;
+}
+.favRecipesCards:hover {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+  background: rgba(255, 67, 91, 0.79);
+}
+.favRecipeHolder {
+  padding: 2px 16px;
+}
+.favImage {
+  height: 150px;
+  width: 150px;
+  top: 0px;
+  right: 0px;
+  border-radius: 5px 5px 0 0;
+}
+.favRecipesCardsContainer {
+  display: flex;
+}
+.recipeText {
+  text-align: center;
+}
+#recipeTopSection {
+}

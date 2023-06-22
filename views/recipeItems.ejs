@@ -7,7 +7,28 @@
     <title>Recipe Cards</title>
   </head>
   <body>
-    <%- include('./partials/nav.ejs') %>
+    <nav>
+      <form action="/recipeItems" method="post">
+        <input
+          type="text"
+          name="query"
+          id="search"
+          placeholder="What Kind of Recipe?"
+        />
+        <button type="submit" class="button">Search</button>
+      </form>
+      <img src="/images/profile.svg" class="profile" />
+    </nav>
+
+    <side-nav>
+      <img src="/images/log.png" class="logo" />
+      <a href="/"
+        ><img src="/images/dashboard.svg" class="side-icons active-icon"
+      /></a>
+      <a href="/"><img src="/images/news.svg" class="side-icons" /></a>
+      <a href="/"> <img src="/images/music-album.svg" class="side-icons" /></a>
+      <!-- <a href="/"> <img src="/images/star.svg" class="side-icons" /></a> -->
+    </side-nav>
     <article>
       <p>Hello !!</p>
       <h1>Search result:</h1>
@@ -28,6 +49,12 @@
               <h3><%=Math.round(recipes[i].recipe.totalWeight)%></h3>
               <h4>Total Weight</h4>
             </div>
+            <div class="linkRecipes">
+              <a href="<%=recipes[i].recipe.url%>" id="linkRecipesUrl"
+                >Click To Learn!</a
+              >
+              <h4>Fats</h4>
+            </div>
             <div class="desc fats">
               <h3><%=recipes[i].recipe.yield%></h3>
               <h4>Yields</h4>
@@ -37,7 +64,7 @@
                 <h4>Ingredients</h4>
                 <%recipes[i].recipe.ingredients.forEach(function(ingredient){ %>
               </h3>
-              <!-- <h4><%= ingredient.text %></h4> -->
+
               <p><%= ingredient.text %></p>
               <% }); %>
             </div>
