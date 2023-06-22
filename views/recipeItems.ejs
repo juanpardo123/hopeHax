@@ -60,10 +60,11 @@
               <h4>Yields</h4>
             </div>
             <div class="recipe ingredients">
-              <h3>
+            
                 <h4>Ingredients</h4>
+                <% let bob = ""; %>
                 <%recipes[i].recipe.ingredients.forEach(function(ingredient){ %>
-              </h3>
+                  <%bob += ('|' + ingredient.text ); %>
 
               <p><%= ingredient.text %></p>
               <% }); %>
@@ -78,56 +79,72 @@
             />
             <button type="submit" class="button2">Search</button>
           </form> -->
-          <form action="/save" method="post">
+          <form action="/saveRecipe" method="post">
             <input
               type="text"
               value="<%=recipes[i].recipe.label%>"
-              name="foodName"
+              name="recipeName"
               class="hid"
               readonly
             />
             <input
               type="text"
               value="<%=recipes[i].recipe.image%>"
-              name="foodImage"
+              name="recipeImage"
               class="hid"
               readonly
             />
             <input
               type="text"
               value="<%=recipes[i].recipe.calories%>"
-              name="foodCalories"
+              name="recipeCalories"
               class="hid"
               readonly
             />
             <input
               type="text"
               value="<%=recipes[i].recipe.totalWeight%>"
-              name="foodProtein"
+              name="recipeTotalWeight"
               class="hid"
               readonly
             />
             <input
               type="text"
               value="<%=recipes[i].recipe.totalTime%>"
-              name="foodFats"
+              name="recipeTotalTime"
               class="hid"
               readonly
             />
             <input
               type="text"
               value="<%=recipes[i].recipe.yield%>"
-              name="foodCarbs"
+              name="recipeYield"
               class="hid"
               readonly
             />
             <input
-              type="text"
-              value="<%=recipes[i].recipe.image%>"
-              name="foodImage"
-              class="hid"
-              readonly
-            />
+            type="text"
+            value="<%=recipes[i].recipe.url%>"
+            name="RecipeURL"
+            class="hid"
+            readonly
+          />
+          <input
+          type="text"
+          value="<%=bob%>"
+          name="ingredients"
+          class="hid"
+          readonly
+        />
+        
+        <input
+        type="text"
+      
+        value="<%=recipes[i].recipe.mealType%>"
+        name="recipeMealType"
+        class="hid"
+        readonly
+      />
             <input type="submit" value="save" class="add" />
           </form>
         </div>

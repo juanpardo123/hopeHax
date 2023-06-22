@@ -9,12 +9,27 @@
 <body>
     <%- include('./partials/nav.ejs') %>
     <article>
-        <p>Hello <%=userData.User_name%>!!</p>
+        <p>Hello !!</p>
         <h1>Search result:</h1>
         <div class="card">
-            
+            <h1>Comments</h1>
+            <!-- Form to add new comments -->
+            <form id="commentForm">
+              <textarea id="commentInput" placeholder="Enter your comment"></textarea>
+              <button type="submit">Submit</button>
+            </form>
+            <div id="commentContainer"></div>
+          
+            <script src="/runTimeScripts/blog.js"></script>
 
         </div>
+        <style>
+                .comment {
+        margin-bottom: 10px;
+        padding: 5px;
+        border: 1px solid #ccc;
+    }
+        </style>
     </article>
 </body>
 

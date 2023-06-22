@@ -56,7 +56,65 @@
 
 
     <% })%>
-       
+    <h1>Your list of Recipes</h1>
+
+<% if(userRecipes) {%>
+
+<% userRecipes.forEach(e=>{ %>
+
+    <div class="card">
+        <div class="holder">
+          <img src="<%=e.Recipe_Image%>" class="main-recipe-image" />
+        </div>
+        <div class="vertical">
+          <h1><%=e.Recipe_Name%></h1>
+          <h2>Meal Type: <%=e.Recipe_MealType%></h2>
+          <div class="horizontal">
+            <div class="desc calories">
+              <h3><%=Math.round(e.Recipe_Calories)%></h3>
+              <h4>Calories</h4>
+            </div>
+            <div class="desc protein">
+              <h3><%=Math.round(e.Recipe_TotalWeight)%></h3>
+              <h4>Total Weight</h4>
+            </div>
+            <div class="linkRecipes">
+              <a href="<%=e.Recipe_URL%>" id="linkRecipesUrl"
+                >Click To Learn!</a
+              >
+              <h4>Fats</h4>
+            </div>
+            <div class="desc fats">
+              <h3><%=e.Recipe_Yield%></h3>
+              <h4>Yields</h4>
+            </div>
+            <div class="recipe ingredients">
+                <h4>Ingredients</h4>
+                <%e.Recipe_Ingredients.split('|').forEach(txt=>{ %>
+
+              <p><%=txt  %></p>
+              <% }); %>
+            </div>
+          </div>
+
+          <!-- <form action="/recipes" method="GET">
+            <input
+              type="text"
+              name="query"
+              placeholder="What Kind of Recipe?"
+            />
+            <button type="submit" class="button2">Search</button>
+          </form> -->
+          <form action="/saveRecipe" method="post">
+           
+            <input type="submit" value="save" class="add" />
+          </form>
+        </div>
+      </div>
+
+
+<% })%>
+<% }%>
     </article>
 </body>
 

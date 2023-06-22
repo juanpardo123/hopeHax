@@ -8,9 +8,15 @@
   --background-color:#F7F7F7;
   --accent1: #7DA2A9;  Color scheme 2*/
 
-  --backdrop:   #D48166;
+
+  /* --backdrop:   #D48166;
   --background-color:#E6E2DD ;
-  --accent1: #373A36; 
+  --accent1: #373A36;  */
+
+  --backdrop:   #C39EA0;
+  --background-color:#F8E5E5 ;
+  --accent1: #FA255E; 
+
 
   /* --backdrop:   #EBA63F;
   --background-color:#F7F4E9 ;
