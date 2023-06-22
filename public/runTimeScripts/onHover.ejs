@@ -1,0 +1,35 @@
+<script >
+    let clip1 = document.querySelector(".vid1");
+    let clip2 = document.querySelector(".vid2");
+    let clip3 = document.querySelector(".vid3");
+
+clip1.addEventListener("mouseover", function (e) {
+    clip1.play();
+ })
+ /* Applying the mouse out event to pause the video */
+ clip1.addEventListener("mouseout", function (e) {
+    clip1.currentTime = 0;
+    clip1.pause();
+    
+ })
+
+ clip2.addEventListener("mouseover", function (e) {
+    clip2.play();
+ })
+ /* Applying the mouse out event to pause the video */
+ clip2.addEventListener("mouseout", function (e) {
+    clip2.currentTime = 0;
+    clip2.pause();
+    
+ })
+
+ clip3.addEventListener("mouseover", function (e) {
+    clip3.play();
+ })
+ /* Applying the mouse out event to pause the video */
+ clip3.addEventListener("mouseout", function (e) {
+    clip3.currentTime = 0;
+    clip3.pause();
+    
+ })
+</script>
