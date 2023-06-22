@@ -7,10 +7,15 @@
   /* --backdrop:  #7DA2A9;
   --background-color:#F7F7F7;
   --accent1: #7DA2A9;  Color scheme 2*/
-
+/* 
   --backdrop:   #D48166;
   --background-color:#E6E2DD ;
-  --accent1: #373A36;
+  --accent1: #373A36; Color 3*/ 
+
+  --backdrop:   #EBA63F;
+  --background-color:#F7F4E9 ;
+  --accent1: #E40C2B;
+  
 
 }
 
@@ -414,7 +419,7 @@ padding-left: 4rem;
     aspect-ratio: 2/1;
     height: 50px;
     border-radius: 27px;
-    background: aquamarine;
+    background: var(--backdrop);
   }
 
   .rbutton:hover{
