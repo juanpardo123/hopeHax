@@ -13,20 +13,60 @@
         <div class="card">
             <div class="holder">
                 <img src="/images/profile.svg" class="profile">
-            </div>
-            <div class="vertical">
-                <h1>Name: <%=userData.User_name%></h1>
-            <h2>Height: <%=userData.User_height%> ft</h2>
-            <h2>weight: <%=userData.User_weight%> Lb</h2>
-            <h2>Target Calories: <%=userData.User_target_calories%></h2>
-            <form action="/logOut" method="post">
-                <input type="submit" value="LogOut" class="add">
-            </form>
+                <form action="/logOut" method="post">
+                    <input type="submit" value="LogOut" class="add">
+                </form>
             </div>
             
-
+            <div class="vertical">
+                <form action="">
+                    <h2>Username:</h2>
+                    <input type="text" value="<%=userData.User_name%>" readonly class="noShow">
+                    <h2>height:</h2>
+                    <input type="text" value="<%=userData.User_height%>" readonly class="noShow">
+                    <h2>Username:</h2>
+                    <input type="text" value="<%=userData.User_weight%>" readonly class="noShow">
+                    <h2>weight:</h2>
+                    <input type="text" value="<%=userData.User_target_calories%>"readonly class="noShow">
+                    <h2>Target Calories:</h2>
+                    <input type="radio" id="theme1" name="theme" value="blue" class="noShow">
+                    <label for="theme1">blue</label><br>
+                    <input type="radio" id="theme2" name="theme" value="red" class="noShow">
+                    <label for="theme2">red</label><br>  
+                    <input type="radio" id="theme3" name="theme" value="green" class="noShow">
+                    <label for="theme3">green</label><br><br>
+                    
+                    <input type="submit" value="Submit" class="add">
+                </form>
+                <button id="themes" class="add">edit</button>
+           
+        
+            </div>
         </div>
     </article>
+    <script>
+        let button = document.querySelector('#themes');
+        let input = document.querySelectorAll('.noShow');
+        let press = false;
+        button.style.backgroundColor = 'blue';
+        button.addEventListener("click", function(){
+            if(!press){
+                button.innerText = "cancel";
+                button.style.backgroundColor = 'red';
+                press = !press
+            }else{
+                button.innerText = "edit";
+                button.style.backgroundColor = 'blue';
+                press = !press
+            }
+                
+                input.forEach(e=>{
+                e.readOnly = (!e.readOnly);
+        })
+        });
+
+       
+    </script>
 </body>
 
 </html>

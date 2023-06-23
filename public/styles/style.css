@@ -465,7 +465,7 @@ transition: all 0.2s;
 
   
   
-  .percent1, .percent2, svg, circle {
+  .percent1, .percent2, circle {
     width: 200px;
     height: 200px;
   }
@@ -622,8 +622,15 @@ transition: all 0.2s;
 }
 
 svg{
-  height: 40px;
-  fill:var(--buttons)
+  height: 30px;
+  fill:var(--buttons);
+  transition: all 0.4s;
+}
+
+svg:hover{
+  transition: all 0.4s;
+  transform: scale(1.2);
+  fill:var(--accent1)
 }
 
 /* Recipes Page Styling */

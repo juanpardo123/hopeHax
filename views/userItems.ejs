@@ -105,9 +105,9 @@
             />
             <button type="submit" class="button2">Search</button>
           </form> -->
-          <form action="/saveRecipe" method="post">
-           
-            <input type="submit" value="save" class="add" />
+          <form action="/listDeleteRecipe" method="post">
+            <input type="text" name="recipeID" value="<%=e.RecipeID%>" class="hid" readonly>
+            <input type="submit" value="Delete" class="add" />
           </form>
         </div>
       </div>

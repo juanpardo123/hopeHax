@@ -13,6 +13,7 @@ import { deleteRecipeByID, getfoodsByID, createUser, createFoods, getUsers, getU
 
 export let globalUserID = null;
 export let globalUserData = null;
+export let globalTheme = null;
 
 
 const app = express();
@@ -126,6 +127,8 @@ app.post('/search', async (req, res) => {
 
     if(successfulLogin){
       globalUserData = await getUserInfo(globalUserID);
+      globalTheme = globalUserData.User_preferences;
+      console.log(globalTheme);
       res.redirect('/');
     }
     else{
@@ -235,13 +238,15 @@ app.post('/search', async (req, res) => {
       let height = req.body.height;
       let weight = req.body.weight;
     let target = Number(req.body.target);
+      let preferences = req.body.theme;
+      
 
       if(password == passwordRepeat){
         let User = await createUser(username,password);
         let newUserID = await getUserIDByUserName(User);
         // console.log('-------------->',newUserID)
         if(newUserID){
-          await createUserInfo(newUserID ,name, height, weight, target);
+          await createUserInfo(newUserID ,name, height, weight, target, preferences);
           res.redirect('/')
         }else{
           console.log('user name is not available')

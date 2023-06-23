@@ -65,11 +65,11 @@ export async function getUserIDByUserName(username){
 }
 
 
-export async function createUserInfo( ID,user_name, user_height, user_weight, user_target_calories){
+export async function createUserInfo( ID,user_name, user_height, user_weight, user_target_calories, preferences){
     await pool.query(`
-    INSERT INTO UserInfo (User_ID,User_name, User_height, User_weight, User_target_calories, User_preferences ) VALUES ( ?, ?, ?, ?, ?, NULL)
+    INSERT INTO UserInfo (User_ID,User_name, User_height, User_weight, User_target_calories, User_preferences ) VALUES ( ?, ?, ?, ?, ?, ?)
         
-        `, [ID, user_name, user_height, user_weight, user_target_calories]);
+        `, [ID, user_name, user_height, user_weight, user_target_calories, preferences]);
 }
 
 //gets all userID and  passwords (Hashed+salted) from the sql data base and returns results as an object:
@@ -98,6 +98,7 @@ export async function getUserInfo(id){
     select * 
     from UserInfo 
     where User_id = ?
+
     `, [id]);
     return result[0];
 }
@@ -119,7 +120,7 @@ export async function getfoodsByID(id){
     select * 
     from UserFoods 
     where User_ID = ?
-    
+    order by AddedTime desc
     `, [id]);
     return result;
 }
@@ -129,7 +130,8 @@ export async function getRecipeByID(id){
     select * 
     from UserRecipes 
     where User_ID = ?
-    
+    order by AddedTime desc
+
     `, [id]);
     return result;
 }
