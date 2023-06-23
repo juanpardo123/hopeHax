@@ -4,11 +4,7 @@ import express from 'express';
 //imports bcrypt. bcrypt is used to hash and salt user passwords.
 import bcrypt from 'bcrypt';
 //import axios. axios in this application is used to handle API requests.
-import axios from 'axios';
-
-import { editUserInfo,deleteRecipeByID, getfoodsByID, createUser, createFoods, getUsers, getUserInfo, createUserInfo, getUserIDByUserName, deleteFoodByID, getfoodsHistoryByID, createRecipeList, getRecipeByID} from './database.js'
-
-
+import axios from "axios";
 
 
 export let globalUserID = null;
@@ -72,6 +68,7 @@ app.get('/', async (req,res)=>{
       totalItems: totalItems,
       target: target,
       remaining: remaining,
+<<<<<<< HEAD
       foodData: foodData,
       globalTheme:globalTheme
     
@@ -186,22 +183,20 @@ app.post('/search', async (req, res) => {
 //if user is logged in
     //a function that retreives the foods based on the user id is called. page 'userItems is then rendered with appropriate details
 //else
-    //user is redirected to default page (Login page)
-  app.get('/list', async (req,res)=>{
-    if(globalUserID){
-      let userFoodList = await getfoodsByID(globalUserID);
-      let userRecipes = await getRecipeByID(globalUserID);
-      res.render('userItems',{
-        foodList:userFoodList,
-        userData: globalUserData,
-        userRecipes: userRecipes,
-        globalTheme:globalTheme
-       });
-    } else{
-      res.redirect('/');
-    }
-  
-  })
+//user is redirected to default page (Login page)
+app.get("/list", async (req, res) => {
+  if (globalUserID) {
+    let userFoodList = await getfoodsByID(globalUserID);
+    let userRecipes = await getRecipeByID(globalUserID);
+    res.render("userItems", {
+      foodList: userFoodList,
+      userData: globalUserData,
+      userRecipes: userRecipes,
+    });
+  } else {
+    res.redirect("/");
+  }
+});
 
   //handles post request to log out user. globalUserID and globalUserData are initiallized.
   app.post('/logOut', (req,res)=>{
@@ -214,52 +209,56 @@ app.post('/search', async (req, res) => {
 //if user is logged in 
     //profile page is rendered with appropriate data
 //else
-    // user is redirected to default page (login page)
-  
-  app.get('/profile', async (req,res)=>{
-    if(globalUserID){
-      res.render('profile',{userData: globalUserData ,globalTheme:globalTheme});
-    } else{
-      res.redirect('/');
-    }
-  
-  })
+// user is redirected to default page (login page)
+
+app.get("/profile", async (req, res) => {
+  if (globalUserID) {
+    res.render("profile", { userData: globalUserData });
+  } else {
+    res.redirect("/");
+  }
+});
 
 //Handles get request for '/create'. renders the signup user page
-  app.get('/create',(req,res)=>{
-   res.render('create', {globalTheme:globalTheme});
-  })
+app.get("/create", (req, res) => {
+  res.render("create");
+});
 
+//handles post request for creating a new user
+app.post("/create", async (req, res) => {
+  let username = req.body.userName;
+  let password = req.body.password;
+  let passwordRepeat = req.body.passwordrepeat;
+  let name = req.body.name;
+  let height = req.body.height;
+  let weight = req.body.weight;
+  let target = Number(req.body.target);
+  let preferences = req.body.theme;
 
-  //handles post request for creating a new user
-  app.post('/create', async (req,res)=>{
-      let username = req.body.userName;
-      let password = req.body.password;
-      let passwordRepeat = req.body.passwordrepeat;
-      let name = req.body.name;
-      let height = req.body.height;
-      let weight = req.body.weight;
-    let target = Number(req.body.target);
-      let preferences = req.body.theme;
-      
-
-      if(password == passwordRepeat){
-        let User = await createUser(username,password);
-        let newUserID = await getUserIDByUserName(User);
-        // console.log('-------------->',newUserID)
-        if(newUserID){
-          await createUserInfo(newUserID ,name, height, weight, target, preferences);
-          res.redirect('/')
-        }else{
-          console.log('user name is not available')
-          res.redirect('/create');
-        }
-      }else{
-        //replace with handled error
-        console.log('Passwords do not match')
-        res.redirect('/create');
-      }
-  })
+  if (password == passwordRepeat) {
+    let User = await createUser(username, password);
+    let newUserID = await getUserIDByUserName(User);
+    // console.log('-------------->',newUserID)
+    if (newUserID) {
+      await createUserInfo(
+        newUserID,
+        name,
+        height,
+        weight,
+        target,
+        preferences
+      );
+      res.redirect("/");
+    } else {
+      console.log("user name is not available");
+      res.redirect("/create");
+    }
+  } else {
+    //replace with handled error
+    console.log("Passwords do not match");
+    res.redirect("/create");
+  }
+});
 
   app.post('/listDelete', async (req,res)=>{
     let itemID = req.body.foodID;
@@ -403,13 +402,9 @@ app.post("/recipeItems", async (req, res) => {
   }
 });
 
-app.get('/aboutUs',(req,res)=>{
-  res.render('about-us',{globalTheme:globalTheme});
-})
-
-app.get('/blog',(req,res)=>{
-  res.render('blog', {globalTheme:globalTheme});
-})
+app.get("/aboutUs", (req, res) => {
+  res.render("about-us");
+});
 
 
 app.locals.userData = globalUserData;
