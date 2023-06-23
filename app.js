@@ -4,7 +4,15 @@ import express from "express";
 //imports bcrypt. bcrypt is used to hash and salt user passwords.
 // import bcrypt from 'bcrypt';
 //import axios. axios in this application is used to handle API requests.
+<<<<<<< HEAD
 import axios from "axios";
+=======
+import axios from 'axios';
+
+import { deleteRecipeByID, getfoodsByID, createUser, createFoods, getUsers, getUserInfo, createUserInfo, getUserIDByUserName, deleteFoodByID, getfoodsHistoryByID, createRecipeList, getRecipeByID} from './database.js'
+
+
+>>>>>>> parent of a6efb49 (theme functionality finished)
 
 import {
   deleteRecipeByID,
@@ -75,10 +83,18 @@ app.get("/", async (req, res) => {
       totalItems: totalItems,
       target: target,
       remaining: remaining,
+<<<<<<< HEAD
       foodData: foodData,
     });
   } else {
     res.render("login");
+=======
+      foodData: foodData
+    
+    });
+  }else{
+    res.render('login');
+>>>>>>> parent of a6efb49 (theme functionality finished)
   }
 });
 
@@ -92,6 +108,7 @@ app.post("/search", async (req, res) => {
     let search = req.body.name;
     try {
       let result = await getItemApi(search);
+<<<<<<< HEAD
       res.render("singleItem", { data: result, userData: globalUserData });
     } catch {
       let suggestions = await getSuggestionsApi(search.substring(0, 3));
@@ -99,6 +116,12 @@ app.post("/search", async (req, res) => {
         data: suggestions,
         userData: globalUserData,
       });
+=======
+      res.render('singleItem', {data:result,userData: globalUserData});
+    } catch {
+      let suggestions = await getSuggestionsApi(search.substring(0, 3));
+      res.render('suggestions', {data:suggestions ,userData: globalUserData})
+>>>>>>> parent of a6efb49 (theme functionality finished)
     }
   } else {
     res.render("login");
@@ -200,6 +223,7 @@ app.post("/saveRecipe", (req, res) => {
 //if user is logged in
 //a function that retreives the foods based on the user id is called. page 'userItems is then rendered with appropriate details
 //else
+<<<<<<< HEAD
 //user is redirected to default page (Login page)
 app.get("/list", async (req, res) => {
   if (globalUserID) {
@@ -214,6 +238,23 @@ app.get("/list", async (req, res) => {
     res.redirect("/");
   }
 });
+=======
+    //user is redirected to default page (Login page)
+  app.get('/list', async (req,res)=>{
+    if(globalUserID){
+      let userFoodList = await getfoodsByID(globalUserID);
+      let userRecipes = await getRecipeByID(globalUserID);
+      res.render('userItems',{
+        foodList:userFoodList,
+        userData: globalUserData,
+        userRecipes: userRecipes
+       });
+    } else{
+      res.redirect('/');
+    }
+  
+  })
+>>>>>>> parent of a6efb49 (theme functionality finished)
 
 //handles post request to log out user. globalUserID and globalUserData are initiallized.
 app.post("/logOut", (req, res) => {
@@ -226,6 +267,7 @@ app.post("/logOut", (req, res) => {
 //if user is logged in
 //profile page is rendered with appropriate data
 //else
+<<<<<<< HEAD
 // user is redirected to default page (login page)
 
 app.get("/profile", async (req, res) => {
@@ -240,6 +282,23 @@ app.get("/profile", async (req, res) => {
 app.get("/create", (req, res) => {
   res.render("create");
 });
+=======
+    // user is redirected to default page (login page)
+  
+  app.get('/profile', async (req,res)=>{
+    if(globalUserID){
+      res.render('profile',{userData: globalUserData });
+    } else{
+      res.redirect('/');
+    }
+  
+  })
+
+//Handles get request for '/create'. renders the signup user page
+  app.get('/create',(req,res)=>{
+   res.render('create');
+  })
+>>>>>>> parent of a6efb49 (theme functionality finished)
 
 //handles post request for creating a new user
 app.post("/create", async (req, res) => {
@@ -252,6 +311,7 @@ app.post("/create", async (req, res) => {
   let target = Number(req.body.target);
   let preferences = req.body.theme;
 
+<<<<<<< HEAD
   if (password == passwordRepeat) {
     let User = await createUser(username, password);
     let newUserID = await getUserIDByUserName(User);
@@ -276,6 +336,50 @@ app.post("/create", async (req, res) => {
     res.redirect("/create");
   }
 });
+=======
+  //handles post request for creating a new user
+  app.post('/create', async (req,res)=>{
+      let username = req.body.userName;
+      let password = req.body.password;
+      let passwordRepeat = req.body.passwordrepeat;
+      let name = req.body.name;
+      let height = req.body.height;
+      let weight = req.body.weight;
+    let target = Number(req.body.target);
+      let preferences = req.body.theme;
+      
+
+      if(password == passwordRepeat){
+        let User = await createUser(username,password);
+        let newUserID = await getUserIDByUserName(User);
+        // console.log('-------------->',newUserID)
+        if(newUserID){
+          await createUserInfo(newUserID ,name, height, weight, target, preferences);
+          res.redirect('/')
+        }else{
+          console.log('user name is not available')
+          res.redirect('/create');
+        }
+      }else{
+        //replace with handled error
+        console.log('Passwords do not match')
+        res.redirect('/create');
+      }
+  })
+
+  app.post('/listDelete', async (req,res)=>{
+    let itemID = req.body.foodID;
+    await deleteFoodByID(itemID);
+    res.redirect('/list');
+  })
+  app.post('/listDeleteRecipe', async (req,res)=>{
+    let itemID = req.body.recipeID;
+    await deleteRecipeByID(itemID);
+    res.redirect('/list');
+  })
+
+
+>>>>>>> parent of a6efb49 (theme functionality finished)
 
 app.post("/listDelete", async (req, res) => {
   let itemID = req.body.foodID;
@@ -401,9 +505,19 @@ app.post("/recipeItems", async (req, res) => {
   }
 });
 
+<<<<<<< HEAD
 app.get("/aboutUs", (req, res) => {
   res.render("about-us");
 });
+=======
+app.get('/aboutUs',(req,res)=>{
+  res.render('about-us');
+})
+
+app.get('/blog',(req,res)=>{
+  res.render('blog');
+})
+>>>>>>> parent of a6efb49 (theme functionality finished)
 
 app.get("/blog", (req, res) => {
   res.render("blog");
