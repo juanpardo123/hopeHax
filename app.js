@@ -72,6 +72,7 @@ app.get('/', async (req,res)=>{
       totalItems: totalItems,
       target: target,
       remaining: remaining,
+      foodData: foodData
     
     });
   }else{
