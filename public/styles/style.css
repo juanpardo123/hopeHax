@@ -305,33 +305,18 @@ padding-left: 4rem;
     display: flex;
     justify-content: flex-start;
   }
-  .rb {
-    width: 160px;
-    height: 60px;
-    font-size: 15px;
-    border: solid 1px #1A1110;
-    border-radius: 47px;
-    margin: 20px;
-    box-shadow: -5px 7px 5px 0px #818483;
-    transition: transform 0.3s;
-  }
   .rb:hover {
     transform: scale(1.1) translateZ(0);
+    box-shadow: 0px 0px 9px 2px #0000004f;
+    transition: all 0.4s;
   }
   .breakfast {
     background: rgba(250, 190, 44, 0.28);
-  }
-  .lunch {
-    background: rgba(136, 53, 220, 0.28);
-  }
-  .dinner {
-    background: rgba(181, 211, 190, 0.79);
-  }
-  .snacks {
-    background: rgba(255, 67, 91, 0.79);
+    box-shadow: 0px 0px 15px 10px #fde6ad69;
   }
   .allRecipes {
     background: rgba(126, 216, 246, 0.28);
+    box-shadow: 0px 0px 15px 10px #ff697730;
   }
   /* Dropdown Syling */
   .dropRecipesInfo {
@@ -457,10 +442,6 @@ padding-left: 4rem;
     background: var(--backdrop);
   }
 
-  .rbutton:hover{
-transform:scale(1.2);
-transition: all 0.2s;
-  }
   .note{
     z-index: 1;
     aspect-ratio: 16/9;
@@ -668,34 +649,9 @@ svg:hover{
   display: flex;
   justify-content: flex-start;
 }
-.rb {
-  width: 160px;
-  height: 60px;
-  font-size: 15px;
-  border: solid 1px #1a1110;
-  border-radius: 47px;
-  margin: 20px;
-  box-shadow: -5px 7px 5px 0px #818483;
-  transition: transform 0.3s;
-}
-.rb:hover {
-  transform: scale(1.1) translateZ(0);
-}
-.breakfast {
-  background: rgba(250, 190, 44, 0.28);
-}
-.lunch {
-  background: rgba(136, 53, 220, 0.28);
-}
-.dinner {
-  background: rgba(181, 211, 190, 0.79);
-}
-.snacks {
-  background: rgba(255, 67, 91, 0.79);
-}
-.allRecipes {
-  background: rgba(126, 216, 246, 0.28);
-}
+
+
+
 /* End Of Recipe Button Styling */
 
 /* side section */
@@ -787,31 +743,32 @@ svg:hover{
 }
 .rb {
   width: 160px;
+  border-style: none;
   height: 60px;
   font-size: 15px;
-  border: solid 1px #1a1110;
+  border: solid 1px #1a11102b;
   border-radius: 47px;
   margin: 20px;
-  box-shadow: -5px 7px 5px 0px #818483;
+  /* box-shadow: -1px 0px 14px 1px #818483; */
   transition: transform 0.3s;
 }
 .rb:hover {
   transform: scale(1.1) translateZ(0);
+  box-shadow: 0px 0px 5px 2px #0000004f;
+    transition: all 0.4s;
 }
-.breakfast {
-  background: rgba(250, 190, 44, 0.28);
-}
+
 .lunch {
   background: rgba(136, 53, 220, 0.28);
+  box-shadow: 0px 0px 15px 10px #ddc0de57;
 }
 .dinner {
   background: rgba(181, 211, 190, 0.79);
+  box-shadow: 0px 0px 15px 10px #c5dac569;
 }
 .snacks {
   background: rgba(255, 67, 91, 0.79);
-}
-.allRecipes {
-  background: rgba(126, 216, 246, 0.28);
+  box-shadow: 0px 0px 15px 10px #ff697730;
 }
 .button2 {
   width: 90px;
@@ -958,4 +915,11 @@ svg:hover{
   background: azure;
     border-style: double;
     border-radius: 5px;
+}
+
+.second{
+  box-shadow: 0px 0px 11px 0px #00000091;
+}
+.second:hover{
+  box-shadow:  0px 0px 17px 7px #8eab5f8f
 }
