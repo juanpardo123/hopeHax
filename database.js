@@ -72,6 +72,16 @@ export async function createUserInfo( ID,user_name, user_height, user_weight, us
         `, [ID, user_name, user_height, user_weight, user_target_calories, preferences]);
 }
 
+export async function editUserInfo( id , user_height, user_weight, user_target_calories, preferences){
+    await pool.query(`
+    
+    UPDATE userinfo 
+    SET User_height = ? ,  User_weight = ?, User_target_calories = ?, User_preferences = ?
+    WHERE User_ID = ?;
+        `, [user_height, user_weight, user_target_calories, preferences, id]);
+}
+
+
 //gets all userID and  passwords (Hashed+salted) from the sql data base and returns results as an object:
 // ID: id int,
 // Username: 'username' string,

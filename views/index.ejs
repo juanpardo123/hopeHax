@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/styles/style.css">
     <title>Main</title>
-    <script src="/runTimeScripts/theme.js"></script>
+    
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.4.0/dist/themes/light.css" />
     <script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.4.0/dist/shoelace-autoloader.js"></script>
 </head>
 <body>
+    <%- include('../public/runTimeScripts/theme.ejs') %>
     <%- include('./partials/nav.ejs') %>
     <article>
         <p>Hello <%=userData.User_name%>!!</p>
@@ -27,17 +28,17 @@
                 </div>
             </div>
             <div class="note-card">
-                <div class="note">
+                <div class="note first">
                     <video src="/images/vid.mp4"
                             muted class="vid1 vid" >
                         </video>
                 </div>
-                <div class="note">
+                <div class="note second">
                     <video src="/images/vid2.mp4"
                             muted class="vid2 vid" >
                         </video>
                 </div>
-                <div class="note">
+                <div class="note thrird">
                     <video src="/images/vid3.mp4"
                             muted class="vid3 vid" >
                         </video>
@@ -128,4 +129,6 @@
         transform: scale(1.2);
     }
 </style>
+
+
 </html>
