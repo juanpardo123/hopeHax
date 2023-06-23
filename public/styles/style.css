@@ -632,8 +632,9 @@ transition: all 0.2s;
 
 svg{
   height: 30px;
-  fill:var(--buttons);
+  fill: var(--buttons);
   transition: all 0.4s;
+  filter: drop-shadow(0px 0px 7px );
 }
 
 svg:hover{
