@@ -7,7 +7,6 @@
     <title>Recipe Cards</title>
   </head>
   <body>
-    <%- include('../public/runTimeScripts/theme.ejs') %>
     <nav>
       <form action="/recipeItems" method="post">
         <input
@@ -61,16 +60,16 @@
               <h3><%=Math.round(recipes[i].recipe.totalWeight)%></h3>
               <h4>Total Weight</h4>
             </div>
-            <div class="linkRecipes">
-              <a href="<%=recipes[i].recipe.url%>" id="linkRecipesUrl"
-                >Click To Learn!</a
-              >
-              <h4>Fats</h4>
+            <div class="desc protein">
+              <h3><%=recipes[i].recipe.totalTime%></h3>
+              <h4>Total Time</h4>
             </div>
-            <div class="desc fats">
+             <div class="desc fats">
               <h3><%=recipes[i].recipe.yield%></h3>
               <h4>Yields</h4>
             </div>
+           
+           
             <div class="recipe ingredients">
             
                 <h4>Ingredients</h4>
@@ -83,14 +82,12 @@
             </div>
           </div>
 
-          <!-- <form action="/recipes" method="GET">
-            <input
-              type="text"
-              name="query"
-              placeholder="What Kind of Recipe?"
-            />
-            <button type="submit" class="button2">Search</button>
-          </form> -->
+          <div class="linkRecipes">
+              <a href="<%=recipes[i].recipe.url%>" id="linkRecipesUrl"
+                >Click To Learn!</a
+              >
+             
+            </div>
           <form action="/saveRecipe" method="post">
             <input
               type="text"

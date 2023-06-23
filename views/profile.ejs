@@ -7,7 +7,6 @@
     <title>Main</title>
 </head>
 <body>
-    <%- include('../public/runTimeScripts/theme.ejs') %>
     <%- include('./partials/nav.ejs') %>
     <article>
         <h1>User info:</h1>
@@ -20,36 +19,26 @@
             </div>
             
             <div class="vertical">
-                <form action="/editInfo" method="post">
+                <form action="">
                     <h2>Username:</h2>
-                    <input type="text" value="<%=userData.User_name%>"  disabled >
-                    <h2>height (ft):</h2>
-                    <input type="text" value="<%=userData.User_height%>" name="height" disabled class="noShow">
-                    <h2>weight (Lb):</h2>
-                    <input type="text" value="<%=userData.User_weight%>" name="weight" disabled class="noShow">
+                    <input type="text" value="<%=userData.User_name%>" readonly class="noShow">
+                    <h2>height:</h2>
+                    <input type="text" value="<%=userData.User_height%>" readonly class="noShow">
+                    <h2>Username:</h2>
+                    <input type="text" value="<%=userData.User_weight%>" readonly class="noShow">
+                    <h2>weight:</h2>
+                    <input type="text" value="<%=userData.User_target_calories%>"readonly class="noShow">
                     <h2>Target Calories:</h2>
-                    <input type="text" value="<%=userData.User_target_calories%>" name="target" disabled class="noShow">
-                    <h2>Theme:</h2>
-                    <p>Current Theme: <%=userData.User_preferences%> </p>
-                    <input type="radio" id="theme1" name="theme" value="watermelon" disabled class="noShow">
-                    <label for="theme1">watermelon</label><br>
-                    <input type="radio" id="theme2" name="theme" value="purple" disabled class="noShow">
-                    <label for="theme2">purple</label><br>  
-                    <input type="radio" id="theme3" name="theme" value="cyan" disabled class="noShow">
-                    <label for="theme3">cyan</label><br><br>
-                    <input type="radio" id="theme3" name="theme" value="lightBlue" disabled class="noShow">
+                    <input type="radio" id="theme1" name="theme" value="blue" class="noShow">
+                    <label for="theme1">blue</label><br>
+                    <input type="radio" id="theme2" name="theme" value="red" class="noShow">
+                    <label for="theme2">red</label><br>  
+                    <input type="radio" id="theme3" name="theme" value="green" class="noShow">
                     <label for="theme3">green</label><br><br>
-                    <input type="radio" id="theme3" name="theme" value="pumpking" disabled class="noShow">
-                    <label for="theme3">green</label><br><br>
-                    <input type="radio" id="theme3" name="theme" value="mango" disabled class="noShow">
-                    <label for="theme3">green</label><br><br>
-                    <div class="sub-holder">
-                        <div id="themes" class="add"><p>edit</p></div>
-                        <input type="submit" value="Submit" class="hid submit ">
-                    </div>
-                
+                    
+                    <input type="submit" value="Submit" class="add">
                 </form>
-              
+                <button id="themes" class="add">edit</button>
            
         
             </div>
@@ -58,45 +47,26 @@
     <script>
         let button = document.querySelector('#themes');
         let input = document.querySelectorAll('.noShow');
-        let submit = document.querySelector('.submit');
-        let edit = false;
+        let press = false;
         button.style.backgroundColor = 'blue';
         button.addEventListener("click", function(){
-            if(!edit){
+            if(!press){
                 button.innerText = "cancel";
                 button.style.backgroundColor = 'red';
-                edit = !edit
-                submit.classList = 'add submit';
+                press = !press
             }else{
                 button.innerText = "edit";
                 button.style.backgroundColor = 'blue';
-                edit = !edit
-                submit.classList = 'hid submit';
+                press = !press
             }
                 
                 input.forEach(e=>{
-                if (edit){
-                    e.classList = 'noShow show'
-                }else{
-                    e.classList = 'noShow'
-                }
-                e.disabled = (!e.disabled)
+                e.readOnly = (!e.readOnly);
         })
         });
 
        
     </script>
 </body>
-<style>
-    .holder{
-        display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    align-content: center;
-    width: 300px;
-    /* padding: 3px; */
-    justify-content: flex-start;
-    align-items: center;
-    }
-</style>
+
 </html>
