@@ -6,7 +6,6 @@ import bcrypt from 'bcrypt';
 //import axios. axios in this application is used to handle API requests.
 import axios from 'axios';
 
-import { editUserInfo,deleteRecipeByID, getfoodsByID, createUser, createFoods, getUsers, getUserInfo, createUserInfo, getUserIDByUserName, deleteFoodByID, getfoodsHistoryByID, createRecipeList, getRecipeByID} from './database.js'
 
 
 
@@ -77,7 +76,6 @@ app.get('/', async (req,res)=>{
     
     });
   }else{
-    res.render('login',{globalTheme:globalTheme});
   }
    
 })
@@ -92,10 +90,8 @@ app.post('/search', async (req, res) => {
     let search = req.body.name;
     try {
       let result = await getItemApi(search);
-      res.render('singleItem', {data:result,userData: globalUserData,globalTheme:globalTheme});
     } catch {
       let suggestions = await getSuggestionsApi(search.substring(0, 3));
-      res.render('suggestions', {data:suggestions ,userData: globalUserData,globalTheme:globalTheme})
     }
   }else{
     res.render('login');
@@ -194,8 +190,6 @@ app.post('/search', async (req, res) => {
       res.render('userItems',{
         foodList:userFoodList,
         userData: globalUserData,
-        userRecipes: userRecipes,
-        globalTheme:globalTheme
        });
     } else{
       res.redirect('/');
@@ -218,7 +212,6 @@ app.post('/search', async (req, res) => {
   
   app.get('/profile', async (req,res)=>{
     if(globalUserID){
-      res.render('profile',{userData: globalUserData ,globalTheme:globalTheme});
     } else{
       res.redirect('/');
     }
@@ -227,7 +220,6 @@ app.post('/search', async (req, res) => {
 
 //Handles get request for '/create'. renders the signup user page
   app.get('/create',(req,res)=>{
-   res.render('create', {globalTheme:globalTheme});
   })
 
 
@@ -273,17 +265,6 @@ app.post('/search', async (req, res) => {
   })
 
 
-  app.post('/editInfo', async (req,res)=>{
-    let height = req.body.height;
-    let weight = req.body.weight;
-    let target = req.body.target;
-    let theme = req.body.theme;
-    await editUserInfo(globalUserID,height,weight,target,theme);
-    globalUserData = await getUserInfo(globalUserID);
-    globalTheme = globalUserData.User_preferences;
-    res.redirect('/profile');
-  })
-
 
 
 //ROUTE HANDLING
@@ -292,9 +273,7 @@ app.get("/recipes", async (req, res) => {
   try {
     const recipes = await getRecipes(query);
     if (recipes.length > 0) {
-      res.render("recipes", { recipes: recipes, globalTheme:globalTheme }); //Showing the template on browser with the data
     } else {
-      res.render("recipes", { recipes: null, globalTheme:globalTheme });
     }
   } catch (error) {
     ///console.log(error);
@@ -378,9 +357,7 @@ app.get("/recipes", async (req, res) => {
   try {
     const recipes = await getRecipes(query);
     if (recipes.length > 0) {
-      res.render("recipes", { recipes: recipes, globalTheme:globalTheme }); //Showing the template on browser with the data
     } else {
-      res.render("recipes", { recipes: null, globalTheme:globalTheme});
     }
   } catch (error) {
     console.log(error);
@@ -395,7 +372,6 @@ app.post("/recipeItems", async (req, res) => {
     search2;
     res.render("recipeItems", {
       recipes: result2,
-      globalTheme:globalTheme
     });
   } catch (error) {
     console.log(error);
@@ -404,11 +380,9 @@ app.post("/recipeItems", async (req, res) => {
 });
 
 app.get('/aboutUs',(req,res)=>{
-  res.render('about-us',{globalTheme:globalTheme});
 })
 
 app.get('/blog',(req,res)=>{
-  res.render('blog', {globalTheme:globalTheme});
 })
 
 
